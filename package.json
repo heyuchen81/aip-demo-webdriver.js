@@ -1,0 +1,34 @@
+{
+  "name": "aip-demo-webdriver.js",
+  "version": "1.0.0",
+  "description": "This is an integration testing framework developed for a demo for AIP using WebdriverJs.",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heyuchen81/aip-demo-webdriver.js.git"
+  },
+  "keywords": [
+    "AIP",
+    "WebdriverJs"
+  ],
+  "author": "XinHe <xin.he@ingenta.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/heyuchen81/aip-demo-webdriver.js/issues"
+  },
+  "homepage": "https://github.com/heyuchen81/aip-demo-webdriver.js#readme",
+  "devDependencies": {
+	"chai": "^3.5.0",
+	"cucumber": "^1.0.0",
+	"grunt": "^1.0.1",
+	"grunt-cli": "^1.2.0",
+	"grunt-contrib-jshint": "^1.0.0",
+	"grunt-env": "^0.4.4",
+	"grunt-exec": "^0.4.7",
+	"sanitize-filename": "^1.6.0",
+	"selenium-webdriver": "^2.53.2"
+  }
+}
