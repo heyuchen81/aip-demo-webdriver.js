@@ -24,7 +24,8 @@ var buildBsDriver_PC1 = function() {
 		'resolution' : '1920x1200',
 		 'browserstack.user' : process.env.USERNAME,
 		 'browserstack.key' : process.env.AUTOMATE_KEY,		
-		'browserstack.debug' : 'true'
+		'browserstack.debug' : 'true',
+		'CapabilityType.ACCEPT_SSL_CERTS': true
 		// 'browserstack.local' : 'true'
 	};
 	return new webdriver.Builder().usingServer(
