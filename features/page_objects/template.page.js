@@ -46,7 +46,6 @@ module.exports = {
 	},
 	
 	checkElementPresent : function(my) {
-		var listorder = order + 1;
 		return my.driver.isElementPresent(my.webdriver.By.xpath('elementXPath'));	
 	},
 	

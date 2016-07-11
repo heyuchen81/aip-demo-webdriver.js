@@ -33,6 +33,11 @@ module.exports = function() {
 		homePage.signInUsernameBox(this).sendKeys('xin.he');
 		homePage.signInPasswordBox(this).sendKeys('password123');
 		homePage.signInUsernameBox(this).submit();
+		
+		this.driver.sleep(5000);
+		
+		
+		
 		callback();
 	});
 	
