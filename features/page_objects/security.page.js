@@ -92,7 +92,10 @@ module.exports = {
 		}).then(function() {
 			if (shared.title) {
 				console.log('I AM IN TITLE!!!!!');
-				currentPage.dangerousContinueLink(my).click();
+				// currentPage.dangerousContinueLink(my).click();
+				
+				my.driver.navigate().to("javascript:document.getElementById('overridelink').click()");
+				
 				// my.webdriver.browser.javascript_dialog.button('OK').click
 				//my.driver.javascript_dialog.button('OK').click
 				my.driver.switchTo().alert().accept();
