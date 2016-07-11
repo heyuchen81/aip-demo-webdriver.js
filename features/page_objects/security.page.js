@@ -20,8 +20,8 @@ module.exports = {
 //		return my.driver.findElement({ css : 'elementCss' }); 		
 //	},
 //	
-	dangerousContinueLink : function(my) {
-		return my.driver.findElement({ xpath : '//h4[@id=continueToSiteAlign]/a' }); 		
+	dangerousContinueLink : function(my) { //*[@id="content"]/div[4]/div[2]/div[2]/h3/span/a/span
+		return my.driver.findElement({ id : 'overridelink' }); 		
 	},
 //	
 //	facetsItem : function(my, category, order) {
