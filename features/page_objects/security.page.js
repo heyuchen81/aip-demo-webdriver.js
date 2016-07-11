@@ -82,7 +82,7 @@ module.exports = {
 		this.pageTitle(my).then(function(txt) {
 			console.log(txt);
 			console.log(homePage.baseUrl().replace("http://", ""));
-			console.log(txt === homePage.baseUrl().replace("http://", ""));
+			console.log(txt === 'Certificate Error: Navigation Blocked');
 			return true; // txt === homePage.baseUrl().replace("http://", "");
 		}).then(function(istitle) {
 			shared.title = istitle;
@@ -93,6 +93,9 @@ module.exports = {
 			if (shared.title) {
 				console.log('I AM IN TITLE!!!!!');
 				currentPage.dangerousContinueLink(my).click();
+				// my.webdriver.browser.javascript_dialog.button('OK').click
+				//my.driver.javascript_dialog.button('OK').click
+				my.driver.switchTo().alert().accept();
 			}
 			return my.driver.getPageSource();
 		}).then(function(src) {

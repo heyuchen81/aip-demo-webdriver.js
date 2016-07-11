@@ -13,7 +13,8 @@ module.exports = function() {
 		this.driver.getPageSource().then(function(src) {
 			console.log(src);
 		}).then(function() {
-			securityPage.goThroughWarning(myworld);
+			console.log('BROWSER IS: ' + myworld.browser);
+			// securityPage.goThroughWarning(myworld);
 		}).then(function() {
 			favoritePage.load(myworld);
 		});
