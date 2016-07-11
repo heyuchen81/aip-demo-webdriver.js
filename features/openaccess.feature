@@ -6,7 +6,7 @@ Feature: Open Access Test
 Background:
   Given user has accessed the Scitation homepage
 
-@common @chrome @firefox @bs_pc1
+@common @chrome @firefox @bs_pc1 @debug
 Scenario: Quick Search Suggestions
   Given user has entered a three letter string into quick search
   When user selects one of the options
