@@ -8,7 +8,7 @@ module.exports = function() {
 	this.World = require('../support/world.js').World;
 
 	this.When(/^user opens the my favourites page$/, function(callback) {		
-		myworld.driver.getPageSource().then(function(src) {
+		this.driver.getPageSource().then(function(src) {
 			console.log(src);
 		});		
 		favoritePage.load(this);		
