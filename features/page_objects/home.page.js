@@ -79,8 +79,8 @@ module.exports = {
 
 	
 	baseUrl : function() {
-		return 'http://x-aip-live-05.ingenta.com/';      
-		//return 'http://scitation.aip.org/';
+		// return 'http://x-aip-live-05.ingenta.com/';      
+		return 'http://scitation.aip.org/';
 	},	
 		
 	waitForTimeout : function() {

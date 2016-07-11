@@ -8,8 +8,8 @@ module.exports = function() {
 	this.World = require('../support/world.js').World;
 
 	this.Given(/^user has accessed the Scitation homepage$/, function(callback) {
-		//homePage.load(this);
-		homePage.loadRemote(this);
+		homePage.load(this);
+		// homePage.loadRemote(this);
 		this.driver.manage().timeouts().implicitlyWait(5000);
 		homePage.pageTitle(this).then(function(title) {
 			expect(title).to.equal('Home Page');
