@@ -137,7 +137,7 @@ module.exports = function() {
 	
 	this.Then(/^the next page of results will be displayed$/, function(callback) {
 		// topicsPage.vanishCurrentPageSpan(this);
-		this.driver.sleep(1000);
+		this.driver.sleep(10000);
 		topicsPage.loadCurrentPageSpan(this);
 		topicsPage.loadCurrentPageSpan_newText(this, 2);
 		topicsPage.currentPageSpan(this).getText().then(function(txt) {
@@ -147,7 +147,7 @@ module.exports = function() {
 	});
 	
 	this.Then(/^results will also be filtered by topic$/, function(callback) {
-		this.driver.sleep(1000);		
+		this.driver.sleep(10000);		
 		topicsPage.explanationText(this).getText().then(function(txt) {	
 			expect(txt).to.contain('(Content contains ‘Physics Today’)');
 		});
@@ -156,7 +156,7 @@ module.exports = function() {
 	
 	this.Then(/^authors will be displayed that are linked to the topic results$/, function(callback) {
 		topicsPage.loadAuthorsTabActive(this);
-		this.driver.sleep(2000);
+		this.driver.sleep(10000);
 		topicsPage.authorItems(this).then(function(elems) {
 			expect(elems.length).to.above(0);
 		});

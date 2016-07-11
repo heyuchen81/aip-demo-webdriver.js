@@ -83,15 +83,15 @@ module.exports = {
 	},
 	
 	loadExplanationText : function(my) {                                        
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="content"]/div[@class="searchExplanation"]/div')), 10000, 'The Explanation Text was still not present when it should have appeared.');		
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="content"]/div[@class="searchExplanation"]/div')), homePage.waitForTimeout() * 1000, 'The Explanation Text was still not present when it should have appeared.');		
 	},
 	
 	loadExplanationText_newText : function(my, text) {
-		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//*[@id="content"]/div[@class="searchExplanation"]/div')), text), 10000, 'The Explanation Text (with new text ' + text + ') was still not present when it should have appeared.');	
+		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//*[@id="content"]/div[@class="searchExplanation"]/div')), text), homePage.waitForTimeout() * 1000, 'The Explanation Text (with new text ' + text + ') was still not present when it should have appeared.');	
 	},
 	
 	loadCurrentPageSpan : function(my) {                                        
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[3]/div[21]/div/div[2]/span')), 10000, 'The Current Page Span was still not present when it should have appeared.');		
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[3]/div[21]/div/div[2]/span')), homePage.waitForTimeout() * 1000, 'The Current Page Span was still not present when it should have appeared.');		
 	},
 	
 	checkCurrentPageSpan : function(my) {
@@ -99,19 +99,17 @@ module.exports = {
 	},  
 	
 	loadCurrentPageSpan_newText : function(my, newText) {
-		var expireTime = 10;
 		var expireMessage = 'Current Page Span (with new text ' + newText + ') was still not present when it should have appeared.';
-		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[3]/div[21]/div/div[2]/span')), newText), expireTime * 1000, expireMessage);	
+		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[3]/div[21]/div/div[2]/span')), newText), homePage.waitForTimeout() * 1000, expireMessage);	
 	},
 	
 	vanishCurrentPageSpan  : function(my) {
-		var expireTime = 10;
 		var expireMessage = 'Current Page Span was still present when it should have disappeared.'
 		my.driver.wait(function() {
 		    return my.driver.isElementPresent(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[3]/div[21]/div/div[2]/span')).then(function(present) {
 		        return !present;
 		    });
-		}, expireTime * 1000, expireMessage);		
+		}, homePage.waitForTimeout() * 1000, expireMessage);		
 	},
 	
 	checkFacetItem : function(my, category, order) {
@@ -120,7 +118,7 @@ module.exports = {
 	},
 	
 	loadExplanationText : function(my) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), 10000, 'The Explanation Text was still not present when it should have appeared.');		
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), homePage.waitForTimeout() * 1000, 'The Explanation Text was still not present when it should have appeared.');		
 	},
 	
 	checkTopicBackLink : function(my) {
@@ -128,7 +126,7 @@ module.exports = {
 	},
 	
 	loadAuthorsTabActive : function(my) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="authorsforconceptcontent" and @class="active"]')), 10000, 'AuthorsTab was still not active when it should have appeared.');		
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="authorsforconceptcontent" and @class="active"]')), homePage.waitForTimeout() * 1000, 'AuthorsTab was still not active when it should have appeared.');		
 	},
 	
 	

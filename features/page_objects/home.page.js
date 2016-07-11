@@ -5,12 +5,7 @@ module.exports = {
 	/* 
 	 *    Web Elements
 	 */
-	
-	baseUrl : function() {
-		return 'http://x-aip-live-05.ingenta.com/';      
-		//return 'http://scitation.aip.org/';
-	},	
-		
+
 	pageTitle : function(my) {
 		return my.driver.getTitle();        
 	},
@@ -71,9 +66,25 @@ module.exports = {
 	},
 	
 	loadPasswordBox : function(my) {
-		var expireTime = 10;
 		var expireMessage = 'Sign-in Password Box was still not present when it should have appeared.'
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.id('signpsswd')), expireTime * 1000, expireMessage);			
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.id('signpsswd')), this.waitForTimeout() * 1000, expireMessage);			
+	},
+	
+	
+    // **********************************************************************
+
+	/*
+	 *    Utilities
+	 */
+
+	
+	baseUrl : function() {
+		return 'http://x-aip-live-05.ingenta.com/';      
+		//return 'http://scitation.aip.org/';
+	},	
+		
+	waitForTimeout : function() {
+		return 60;      
 	}
 	
 };

@@ -3,8 +3,7 @@
 var homePage = require('../page_objects/home.page.js');
 
 module.exports = {
-	
-		
+			
 	/* 
 	 *    Web Elements
 	 */

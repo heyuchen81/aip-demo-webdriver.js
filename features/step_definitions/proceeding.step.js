@@ -48,7 +48,7 @@ module.exports = function() {
 
 	this.Then(/^there will be a list of related content on the Related tab$/, function(callback) {
 		proceedingPage.relatedLink(this).click();
-		this.driver.sleep(3000);
+		this.driver.sleep(10000);
 		proceedingPage.relatedItems(this).then(function(elems) {
 			expect(elems.length).to.above(0);
 		});

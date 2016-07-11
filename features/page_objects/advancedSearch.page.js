@@ -52,7 +52,7 @@ module.exports = {
 	},
 	
 	loadSearchWithinTopicsItemClickable : function(my, order) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@id=\'sWDlgHook\']/div/ul[@class=\'sWDlgList\']/li[' + order + '][@class=\'\']/input')), 10000, 'The clickable Topics item was still not present when it should have appeared.');			
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@id=\'sWDlgHook\']/div/ul[@class=\'sWDlgList\']/li[' + order + '][@class=\'\']/input')), homePage.waitForTimeout() * 1000, 'The clickable Topics item was still not present when it should have appeared.');			
 	}
 	
 };

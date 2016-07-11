@@ -54,7 +54,6 @@ module.exports = {
 	
 	currentPageSpan : function(my) {
 		return my.driver.findElement({ xpath : '//div[@class="navigationBar"]/div/div[@class="paginator"]/span' });	
-		//*[@id="searchResultsContainer"]/div[4]/div[13]/div/div[2]/span
 	},  
 	
 	nextButton : function(my) {
@@ -75,19 +74,19 @@ module.exports = {
 	},
 	
 	loadExplanationText : function(my) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), 10000, 'The Explanation Text was still not present when it should have appeared.');		
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), homePage.waitForTimeout() * 1000, 'The Explanation Text was still not present when it should have appeared.');		
 	},
 	
 	loadExplanationText_newText : function(my, text) {
-		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), text), 10000, 'The Explanation Text (with new text ' + text + ') was still not present when it should have appeared.');	
+		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), text), homePage.waitForTimeout() * 1000, 'The Explanation Text (with new text ' + text + ') was still not present when it should have appeared.');	
 	},
 	
 	loadFacetBackLink : function(my, category) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'facets\']/h3[contains(text(),\'' + category + ':\')]/following-sibling::p[1]/a')), 10000, 'Facet Back Link (in ' + category + ') was still not present when it should have appeared.');		
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'facets\']/h3[contains(text(),\'' + category + ':\')]/following-sibling::p[1]/a')), homePage.waitForTimeout() * 1000, 'Facet Back Link (in ' + category + ') was still not present when it should have appeared.');		
 	},
 	
 	loadNewestFirstLink : function(my) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="sortForm"]/div/span[contains(normalize-space(@class), \'sort-by-list\')]/span[text()=\'Newest first\']')), 10000, 'Newest First Link was still not present when it should have appeared.');		
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="sortForm"]/div/span[contains(normalize-space(@class), \'sort-by-list\')]/span[text()=\'Newest first\']')), homePage.waitForTimeout() * 1000, 'Newest First Link was still not present when it should have appeared.');		
 	},
 	
 	vanishFacetBackLink : function(my, category) {
@@ -95,11 +94,11 @@ module.exports = {
 		    return my.driver.isElementPresent(my.webdriver.By.xpath('//div[@class=\'facets\']/h3[contains(text(),\'' + category + ':\')]/following-sibling::p[1]/a')).then(function(present) {
 		        return !present;
 		    });
-		}, 10000, 'The Facet Back Link was still present when it should have disappeared.');		
+		}, homePage.waitForTimeout() * 1000, 'The Facet Back Link was still present when it should have disappeared.');		
 	},
 	
 	loadCurrentPageSpan : function(my) {                                        
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[4]/div[21]/div/div[2]/span')), 10000, 'The Current Page Span was still not present when it should have appeared.');		
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[4]/div[21]/div/div[2]/span')), homePage.waitForTimeout() * 1000, 'The Current Page Span was still not present when it should have appeared.');		
 	},                                                                          
 	
 	checkCurrentPageSpan : function(my) {
@@ -107,9 +106,8 @@ module.exports = {
 	}, 
 	
 	loadCurrentPageSpan_newText : function(my, newText) {
-		var expireTime = 10;
 		var expireMessage = 'Current Page Span (with new text ' + newText + ') was still not present when it should have appeared.';
-		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[3]/div[21]/div/div[2]/span')), newText), expireTime * 1000, expireMessage);	
+		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[3]/div[21]/div/div[2]/span')), newText), homePage.waitForTimeout() * 1000, expireMessage);	
 	},
 	
 	

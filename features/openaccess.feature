@@ -12,7 +12,7 @@ Scenario: Quick Search Suggestions
   When user selects one of the options
   Then search results page is displayed
 
-@common @chrome @firefox @bs_pc1 @bs_m1 @debug
+@common @chrome @firefox @bs_pc1 @bs_m1
 Scenario: Quick Search Filters
   Given user is on search results page after searching for "climate changes in china" 
   When user filters results by topic
@@ -365,7 +365,7 @@ Scenario: Journal Add To Favourites
   #When user opens the content alerts view page
   #Then there will be alerts displayed
 
-@common @chrome @firefox @bs_pc1 @bs_m1
+@common @chrome @firefox @bs_pc1 @bs_m1 @debug
 Scenario: My Account Favourites
   Given user has signed in as a personal user
   When user opens the my favourites page

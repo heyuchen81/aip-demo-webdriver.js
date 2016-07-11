@@ -76,9 +76,8 @@ module.exports = {
 	},
 	
 	loadEmailBox : function(my) {
-		var expireTime = 10;
 		var expireMessage = 'Email Box was still not present when it should have appeared.'
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.id('orderuser')), expireTime * 1000, expireMessage);			
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.id('orderuser')), homePage.waitForTimeout() * 1000, expireMessage);			
 	},
 
 	

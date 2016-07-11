@@ -33,9 +33,6 @@ module.exports = {
 	contributedArticleTitle : function(my, order) {
 		return my.driver.findElement({ xpath : '//div[@class="articleInToc"]/ul/li[' + order + ']/div/div/h5/span/a' });		
 	},
-	
-	
-	//*[@id="content"]/div[5]/div[2]/div[4]/div/div/div/ul[1]/li[2]/ul/div/ul/li/div[2]/div[1]/h5/span/a
 
 	
     // **********************************************************************

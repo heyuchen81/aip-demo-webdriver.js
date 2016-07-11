@@ -1,5 +1,7 @@
 'use strict';
 
+var homePage = require('../page_objects/home.page.js');
+
 module.exports = {
 		
 	/* 
@@ -39,7 +41,7 @@ module.exports = {
 	 */
 
 	loadBrowseTitlesTab : function(my) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="titlestab"]/a/span')), 10000, 'The Browse Titles tab was still not present when it should have appeared.');		
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="titlestab"]/a/span')), homePage.waitForTimeout() * 1000, 'The Browse Titles tab was still not present when it should have appeared.');		
 	},
 	
 	checkArticleTabs : function(my) {

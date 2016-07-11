@@ -1,5 +1,7 @@
 'use strict';
 
+var homePage = require('../page_objects/home.page.js');
+
 module.exports = {
 		
 	/* 
@@ -79,13 +81,7 @@ module.exports = {
 	citationAuthorLink : function(my) {
 		return my.driver.findElement({ xpath : '//*[@id="authorpopup"]/div/div[1]/a' });	
 	},
-	
-	//*[@id="authorpopup"]/div/div[1]/a
-	
-	
-	//*[@id="listItems"]/div/div[@class="resultItemContainer "]/div/div/div[@class="authorsWithPopup"]/span[]/a[5]
-	//*[@id="listItems"]/div/div[1]/div/div[1]/div[2]/span[2]/a[5]
-	
+
 	
     // **********************************************************************
 
@@ -116,11 +112,11 @@ module.exports = {
 	},
 
 	loadExplanationText : function(my) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), 10000, 'The Explanation Text was still not present when it should have appeared.');		
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), homePage.waitForTimeout() * 1000, 'The Explanation Text was still not present when it should have appeared.');		
 	},
 	
 	loadExplanationText_newText : function(my, text) {
-		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), text), 10000, 'The Explanation Text (with new text ' + text + ') was still not present when it should have appeared.');	
+		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), text), homePage.waitForTimeout() * 1000, 'The Explanation Text (with new text ' + text + ') was still not present when it should have appeared.');	
 	},
 	
 	vanishExplanationText : function(my) {
@@ -128,7 +124,7 @@ module.exports = {
 		    return my.driver.isElementPresent(my.webdriver.By.xpath('//div[@class=\'explanationText \']')).then(function(present) {
 		        return !present;
 		    });
-		}, 10000, 'The Explanation Text was still present when it should have disappeared.');		
+		}, homePage.waitForTimeout() * 1000, 'The Explanation Text was still present when it should have disappeared.');		
 	},
 	
 	

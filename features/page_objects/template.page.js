@@ -50,27 +50,24 @@ module.exports = {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('elementXPath'));	
 	},
 	
-	waitUntilElementPresent : function(my, expireTime, expireMessage) {
-		expireTime = 10;
+	waitUntilElementPresent : function(my, expireMessage) {
 		expireMessage = 'Element was still not present when it should have appeared.'
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('elementXPath')), expireTime * 1000, expireMessage);			
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('elementXPath')), homePage.waitForTimeout() * 1000, expireMessage);			
 	},
 	
-	waitUntilElementDisappear  : function(my, expireTime, expireMessage) {
-		expireTime = 10;
+	waitUntilElementDisappear  : function(my, expireMessage) {
 		expireMessage = 'Element was still present when it should have disappeared.'
 		my.driver.wait(function() {
 		    return my.driver.isElementPresent(my.webdriver.By.xpath('elementXPath')).then(function(present) {
 		        return !present;
 		    });
-		}, expireTime * 1000, expireMessage);		
+		}, homePage.waitForTimeout() * 1000, expireMessage);		
 	},
 	
-	wailUntilElementContainNewText : function(my, newText, expireTime, expireMessage) {
+	wailUntilElementContainNewText : function(my, newText, expireMessage) {
 		newText = 'someNewText';
-		expireTime = 10;
 		expireMessage = 'Element (with new text ' + newText + ') was still not present when it should have appeared.';
-		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('elementXPath')), newText), expireTime * 1000, expireMessage);	
+		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('elementXPath')), newText), homePage.waitForTimeout() * 1000, expireMessage);	
 	},
 
 	

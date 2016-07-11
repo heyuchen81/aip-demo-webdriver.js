@@ -52,22 +52,6 @@ module.exports = {
 	
 	registerButton : function(my) {
 		return my.driver.findElement({ xpath : '//*[@id="regForm"]/div[7]/input' }); 	
-	},
-
-	
-    // **********************************************************************
-
-	/*
-	 *    Actions
-	 */
-
-	load : function(my) {
-		my.driver.get(this.baseUrl());
-	},
-
-//	checkAutocompleteItem : function(my, order) {
-//		var listorder = order + 1;
-//		return my.driver.isElementPresent(my.webdriver.By.id('ui-id-' + listorder));	
-//	}
+	}
 	
 };
