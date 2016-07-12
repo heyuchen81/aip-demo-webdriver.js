@@ -35,6 +35,7 @@ module.exports = function() {
 	this.When(/^user selects a publisher facet$/, function(callback) {
 		var shared = {};
 		var myworld = this;
+		this.driver.sleep(8000);
 		authorPage.facetItems(this, 'publisher').then(function(elems) {
 			expect(elems.length).to.above(1);		
 		}).then(function() {

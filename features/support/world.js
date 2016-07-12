@@ -25,7 +25,7 @@ var buildBsDriver_PC1 = function() {
 		 'browserstack.user' : process.env.USERNAME,
 		 'browserstack.key' : process.env.AUTOMATE_KEY,		
 		'browserstack.debug' : 'true',
-		'CapabilityType.ACCEPT_SSL_CERTS': true
+		'CapabilityType.ACCEPT_SSL_CERTS': 'true'
 		// 'browserstack.local' : 'true'
 	};
 	return new webdriver.Builder().usingServer(
@@ -87,8 +87,7 @@ var World = function World() {
 				css : cssLocator
 			});
 		}, waitTimeout);
-	};
-	
+	};	
 };
 
 module.exports.World = World;

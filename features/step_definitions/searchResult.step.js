@@ -225,6 +225,7 @@ module.exports = function() {
 	
 	this.When(/^user selects the author name "([^"]*)"$/, function(name, callback) {
 		var myworld = this;			
+		this.driver.sleep(5000);
 		searchResultPage.authorLink(this, 1, name).click();
 		callback();
 	});
@@ -352,21 +353,6 @@ module.exports = function() {
 		}).then(function(txt) {
 			expect(txt).to.equal('active ');
 		});	
-		callback();
-	});
-	
-	this.Then(/^results are displayed for related databases$/, function(callback) {
-		var myworld = this;			
-		searchResultPage.checkExplanationText(this).then(function(present) {
-			expect(present).to.equal(false);
-			return searchResultPage.relatedDatabasesTab(myworld).getAttribute('class');
-		}).then(function(txt) {
-			expect(txt).to.equal('active ');	
-			return searchResultPage.checkFacetItem(myworld, 'topic', 1);
-		}).then(function(present) {
-			expect(present).to.equal(false);
-			// searchResultPage.loadExplanationText(myworld);	
-		});
 		callback();
 	});
 	

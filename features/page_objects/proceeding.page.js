@@ -21,7 +21,8 @@ module.exports = {
 	},
 	
 	articleLink : function(my, order) {
-		return my.driver.findElement({ xpath : '//*[@id="content"]/div[4]/div[1]/ul[3]/li[2]/ul/div[5]/ul/li/div[2]/div[1]/h5/span/a' });		
+		return my.driver.findElement({ xpath : '//*[@id="content"]/div[4]/div[1]/ul[3]/li[2]/ul/div/ul/li/div[2]/div[1]/h5/span/a' });	
+												//*[@id="content"]/div[4]/div[1]/ul[3]/li[2]/ul/div[5]/ul/li/div[2]/div[1]/h5/span/a
 	},
 	
 	relatedLink : function(my) {

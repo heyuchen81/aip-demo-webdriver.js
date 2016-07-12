@@ -35,6 +35,7 @@ module.exports = function() {
 	});
 
 	this.When(/^user has selected a Conference Paper$/, function(callback) {
+		this.driver.sleep(10000);
 		proceedingPage.articleLink(this, 3).click();
 		callback();
 	});

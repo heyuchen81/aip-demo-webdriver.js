@@ -84,7 +84,7 @@ module.exports = {
 	},	
 		
 	waitForTimeout : function() {
-		return 60;      
+		return 30;      
 	}
 	
 };

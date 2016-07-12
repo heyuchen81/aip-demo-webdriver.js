@@ -73,7 +73,7 @@ module.exports = function() {
 		}).then(function(present) {
 			expect(present).to.equal(false);
 			topicsPage.facetItem(myworld, 'topic', 3).click();
-			myworld.driver.sleep(5000);
+			myworld.driver.sleep(10000);
 		}).then(function() {
 			return topicsPage.explanationText(myworld).getText();
 		}).then(function(txt) {
@@ -94,7 +94,8 @@ module.exports = function() {
 	
 	this.Then(/^results are filtered by "([^"]*)"$/, function(Keywords, callback) {
 		var myworld = this;
-		this.driver.sleep(1000);
+		this.driver.sleep(8000);
+		topicsPage.loadExplanationText(this);
 		topicsPage.loadExplanationText_newText(this, '(About contains');
 		topicsPage.explanationText(this).getText().then(function(txt) {	
 			expect(txt).to.contain('(About contains ‘' + Keywords + '’)');
@@ -129,6 +130,7 @@ module.exports = function() {
 	});
 	
 	this.Then(/^full topic results will be displayed$/, function(callback) {
+		this.driver.sleep(8000);
 		topicsPage.explanationText(this).getText().then(function(txt) {	
 			expect(txt).to.not.contain('(About contains');
 		});
