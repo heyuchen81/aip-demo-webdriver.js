@@ -31,7 +31,9 @@ module.exports = function() {
 	});
 	
 	this.When(/^user clicks on the most read rss icon$/, function(callback) {		
+		this.driver.sleep(5000);
 		journalPage.mostReadRssIcon(this).click();		
+		this.driver.sleep(5000);
 		callback();
 	});
 
@@ -65,6 +67,15 @@ module.exports = function() {
 			return myworld.driver.getCurrentUrl();
 		}).then(function(url) {
 			expect(url).to.contain(homePage.baseUrl() + 'mostviewed/rss.action');
+			myworld.driver.close();
+			return myworld.driver.getAllWindowHandles();
+		}).then(function(allhandles) {
+			//expect(allhandles.length).to.equal(1);
+			var newhandlerid = allhandles[0];						
+			myworld.driver.switchTo().window(newhandlerid);			
+			return myworld.driver.getCurrentUrl();
+		}).then(function(url) {
+			expect(url).to.not.equal(homePage.baseUrl() + 'mostviewed/rss.action');
 		});
 		callback();
 	});
