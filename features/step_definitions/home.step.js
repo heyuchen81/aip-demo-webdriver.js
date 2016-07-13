@@ -56,7 +56,9 @@ module.exports = function() {
 	});
 		
 	this.When(/^user has clicked on the most cited rss icon$/, function(callback) {
+		this.driver.sleep(5000);
 		homePage.mostCitedLink(this).click();
+		this.driver.sleep(5000);
 		callback();
 	});	
 	
