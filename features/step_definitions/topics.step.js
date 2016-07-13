@@ -158,8 +158,9 @@ module.exports = function() {
 	
 	this.Then(/^authors will be displayed that are linked to the topic results$/, function(callback) {
 		topicsPage.loadAuthorsTabActive(this);
-		this.driver.sleep(10000);
+		topicsPage.loadAuthor(this, 1);
 		topicsPage.authorItems(this).then(function(elems) {
+			console.log('WE HAVE A LOT OF ELEMENTS: ' + elems.length);
 			expect(elems.length).to.above(0);
 		});
 		callback();

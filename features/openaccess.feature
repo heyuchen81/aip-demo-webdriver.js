@@ -119,7 +119,7 @@ Scenario: Topic Page Facets
   When user clicks the Physics Today tab
   Then results will also be filtered by topic
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug1
 Scenario: Topic Page Authors Tab
   Given user is on topic page "Mathematical physics"
   When user selects the authors tab
@@ -185,7 +185,7 @@ Scenario: Unsuccessful Registration
   When user clicks on the registration button
   Then user will be taken to the not authorized page
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug1
+@common @chrome_live @firefox @bs_pc1 @bs_m1 
 Scenario: Journal Most Read RSS Feeds
   Given user is on "American Journal of Physics" journal page
   When user clicks on the most read rss icon

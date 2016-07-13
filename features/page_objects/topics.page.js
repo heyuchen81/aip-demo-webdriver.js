@@ -125,9 +125,13 @@ module.exports = {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//*[@id="facetFilter"]/div[2]/div[@class="facets"]/p[1]/a'));	
 	},
 	
-	loadAuthorsTabActive : function(my) {
+	loadAuthorsTabActive : function(my) {										
 		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="authorsforconceptcontent" and @class="active"]')), homePage.waitForTimeout() * 1000, 'AuthorsTab was still not active when it should have appeared.');		
-	},
+	},																			
+	
+	loadAuthor : function(my, order) {										    
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[contains(normalize-space(@class), \'searchResultsContainerInner\')]/div[@class="resultItemContainer "][' + order + ']')), homePage.waitForTimeout() * 1000, 'Author ' + order +' was still not active when it should have appeared.');		
+	},																										     
 	
 	
     // **********************************************************************
