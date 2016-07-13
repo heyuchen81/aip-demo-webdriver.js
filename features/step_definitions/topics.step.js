@@ -160,7 +160,6 @@ module.exports = function() {
 		topicsPage.loadAuthorsTabActive(this);
 		topicsPage.loadAuthor(this, 1);
 		topicsPage.authorItems(this).then(function(elems) {
-			console.log('WE HAVE A LOT OF ELEMENTS: ' + elems.length);
 			expect(elems.length).to.above(0);
 		});
 		callback();

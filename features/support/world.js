@@ -40,7 +40,8 @@ var buildBsDriver_M1 = function() {
 		'device' : 'iPhone 6S Plus',
 		'browserstack.user' : process.env.USERNAME,
 		'browserstack.key' : process.env.AUTOMATE_KEY,
-		'browserstack.debug' : 'true'
+		'browserstack.debug' : 'true',
+		'CapabilityType.ACCEPT_SSL_CERTS': 'true'
 	};
 	return new webdriver.Builder().usingServer(
 			'http://hub.browserstack.com/wd/hub')
