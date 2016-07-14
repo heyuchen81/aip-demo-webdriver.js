@@ -238,7 +238,7 @@ Scenario: My Account Favourites
   #And user clicks the checkout button
   #Then user will be taken to the billing address page
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2 @debug_pc1
 Scenario: Homepage RSS Feeds
   When user has clicked on the most cited rss icon
   Then the rss feed will be displayed
