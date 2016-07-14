@@ -71,7 +71,7 @@ module.exports = {
 	
 	modifySearchButton : function(my) {
 		return my.driver.findElement({ xpath : '//div[@class=\'resultsbuttonsContainer\']/div/a[@title=\'Modify this search\']' });			
-	},
+	},                                          
 	
 	authorLink : function(my, order, name) {
 		var thespan = my.driver.findElement({ xpath : '//*[@id="listItems"]/div/div[@class="resultItemContainer "][' + order + ']/div/div/div[@class="authorsWithPopup"]/span[2]' });	
@@ -81,8 +81,32 @@ module.exports = {
 	citationAuthorLink : function(my) {
 		return my.driver.findElement({ xpath : '//*[@id="authorpopup"]/div/div[1]/a' });	
 	},
-
 	
+	mobileFilterButton : function(my) {
+		return my.driver.findElement({ xpath : '//*[@id="searchResultsContainer"]/div[contains(normalize-space(@class), \'resultsnav\')]/div[@class="mobileFilterContainer"]/button' });
+	},
+	
+	mobileFacetCategory : function(my, category) {
+		return my.driver.findElement({ xpath : '//*[@id="searchResultsContainer"]/div/div/div[@class="search-facet-mobile-container"]/div[@class="facets"]/h3[contains(text(),\'' + category +':\')]' });
+	},
+	
+	mobileFacetItem : function(my, order) {
+		return my.driver.findElement({ xpath : '//*[@id="searchResultsContainer"]/div/div/div[@class="search-facet-mobile-container"]/div[@class="facets"]/ul[contains(normalize-space(@class), \'hiddenFacetList\')]/li[' + order +']' });
+	},
+	
+	mobileFacetCancel : function(my, order) {
+		return my.driver.findElement({ xpath : '//*[@id="searchResultsContainer"]/div[contains(normalize-space(@class), \'resultsnav\')]/a[@class="anysearchfacetlink"]/span[contains(normalize-space(@class), \'featured-remove-filter\')]' });
+	},
+	
+	mobileSortDdl : function(my) {
+		return my.driver.findElement({ xpath : '//*[@id="sortForm"]/div/span[contains(normalize-space(@class), \'mobileLabel\')]' });
+	},
+	
+	mobileEditButton : function(my) {
+		return my.driver.findElement({ xpath : '//*[@id="content"]/span[contains(text(),\'Edit or Save\')]' });
+	},
+		
+
     // **********************************************************************
 
 	/*
@@ -115,6 +139,10 @@ module.exports = {
 		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), homePage.waitForTimeout() * 1000, 'The Explanation Text was still not present when it should have appeared.');		
 	},
 	
+	loadMobileFacetCategory : function(my, category) {
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div/div/div[@class="search-facet-mobile-container"]/div[@class="facets"]/h3[contains(text(),\'' + category +':\')]')), homePage.waitForTimeout() * 1000, 'The Explanation Text was still not present when it should have appeared.');		
+	},
+	
 	loadExplanationText_newText : function(my, text) {
 		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), text), homePage.waitForTimeout() * 1000, 'The Explanation Text (with new text ' + text + ') was still not present when it should have appeared.');	
 	},
@@ -145,6 +173,26 @@ module.exports = {
 	
 	getSearchResultElementTime : function(txt) {
 		return parseInt(txt.replace('(', '').replace(')', '').trim());
+	},
+	
+	mobileSortTreat : function(my) {
+		var currentPage = this;
+		my.driver.sleep(1000);
+		this.mobileSortDdl(my).isDisplayed().then(function(displayed) {
+			if (displayed) {
+				currentPage.mobileSortDdl(my).click();
+			}
+		});
+	},
+	
+	mobileEditTreat : function(my) {
+		var currentPage = this;
+		my.driver.sleep(1000);
+		this.mobileEditButton(my).isDisplayed().then(function(displayed) {
+			if (displayed) {
+				currentPage.mobileEditButton(my).click();
+			}
+		});
 	},
 	
 	cloneArray : function(arr) {

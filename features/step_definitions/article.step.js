@@ -25,9 +25,9 @@ module.exports = function() {
 		callback();
 	});
 	
-	this.Then(/^the article page will be displayed$/, function(callback) {
-		articlePage.breadCrumb(this).getText().then(function(txt) {
-			expect(txt).to.contain('Article');
+	this.Then(/^the article page will be displayed$/, function(callback) {		
+		articlePage.abstractTab(this).isDisplayed().then(function(displayed) {
+			expect(displayed).to.equal(true);
 		});
 		callback();
 	});

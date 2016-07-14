@@ -15,6 +15,10 @@ module.exports = {
 		return my.driver.findElement({ id : 'breadcrumb' }); 		
 	},
 	
+	abstractTab : function(my) {
+		return my.driver.findElement({ xpath : '//*[@id="abstract"]/a/span' }); 		
+	},
+	
 
     // **********************************************************************
 

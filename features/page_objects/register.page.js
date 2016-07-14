@@ -47,7 +47,7 @@ module.exports = {
 	},
 	
 	notRobot : function(my) {
-		return my.driver.findElement({ id : 'timer_id' }); 	
+		return my.driver.findElement({ id : 'timer_id' }); 
 	},
 	
 	registerButton : function(my) {

@@ -64,6 +64,18 @@ module.exports = {
 	topicHeader : function(my) {
 		return my.driver.findElement({ xpath : '//*[@id="content"]/div[2]/h1' });	
 	},
+
+	mobileSpecificTopics : function(my) {
+		return my.driver.findElement({ xpath : '//*[@id="content"]/div[@class="conceptsheader"]/div[contains(normalize-space(@class), \'conceptspartcontainer\')]/div[contains(normalize-space(@class), \'morespecificconcepts\')]/h3' });
+	},
+	
+	mobileFilterButton : function(my) {
+		return my.driver.findElement({ xpath : '//*[@id="searchResultsContainer"]/div/div[@class="resultsnav"]/div[@class="mobileFilterContainer"]/div/div/button' });
+	},
+	
+	mobileBackLink : function(my) {
+		return my.driver.findElement({ xpath : '//*[@id="facetFilter"]/div[1]/button/span[2]' });
+	},	
 		
 		
     // **********************************************************************
@@ -78,7 +90,6 @@ module.exports = {
 	
 	loadTopic : function(my, topic) {		
 		var ext = 'content/topic/' + topic.trim().replace(' ', '-').toLowerCase();
-		console.log(homePage.baseUrl() + ext)
 	    my.driver.get(homePage.baseUrl() + ext);
 	},
 	
@@ -125,6 +136,10 @@ module.exports = {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//*[@id="facetFilter"]/div[2]/div[@class="facets"]/p[1]/a'));	
 	},
 	
+	checkMobileBackLink : function(my) {
+		return my.driver.isElementPresent(my.webdriver.By.xpath('//*[@id="facetFilter"]/div[1]/button/span[2]'));	
+	},	
+	
 	loadAuthorsTabActive : function(my) {										
 		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="authorsforconceptcontent" and @class="active"]')), homePage.waitForTimeout() * 1000, 'AuthorsTab was still not active when it should have appeared.');		
 	},																			
@@ -147,5 +162,15 @@ module.exports = {
 	getFacetItemNumber : function(txt) {
 	    var refnum = txt.trim().replace(',', '').split(' ').pop();
 	    return parseInt(refnum.slice(1, refnum.length - 1));
+	},
+	
+	mobileSpecificTopicsTreat : function(my) {
+		var currentPage = this;
+		my.driver.sleep(1000);
+		this.mobileSpecificTopics(my).isDisplayed().then(function(displayed) {
+			if (displayed) {
+				currentPage.mobileSpecificTopics(my).click();
+			}
+		});
 	}
 };

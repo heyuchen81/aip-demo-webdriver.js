@@ -8,7 +8,6 @@ module.exports = function() {
 
 	this.World = require('../support/world.js').World;
 
-		
 	this.When(/^user selects a report$/, function(callback) {	
 		reportsPage.reportCheckBox(this, 2).click();
 		callback();

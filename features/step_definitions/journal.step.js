@@ -20,11 +20,11 @@ module.exports = function() {
 	
 	this.Given(/^user is on "([^"]*)" journal browse tab$/, function(jtitle, callback) {
 		var myworld = this;	
-		this.driver.manage().window().setSize(1500, 1000);
 		publicationsPage.load(this);
 		publicationsPage.publicationItem(this, jtitle).click();		
 		journalPage.pageTitle(this).then(function(ptitle) {
-			expect(ptitle).to.equal(jtitle);
+			expect(ptitle).to.equal(jtitle);			
+			journalPage.mobileEditTreat(myworld);
 			journalPage.browseLink(myworld).click();
 		});
 		callback();
@@ -39,6 +39,7 @@ module.exports = function() {
 
 	this.When(/^user clicks on the subscribe to email alerts link$/, function(callback) {
 		var myworld = this;
+		homePage.mobileLoginTreat(this);
 		journalPage.checkSignInAlert(this).then(function(present) {
 			expect(present).to.equal(false);					
 		}).then(function() {

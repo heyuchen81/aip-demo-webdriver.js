@@ -10,6 +10,7 @@ module.exports = function() {
 	this.World = require('../support/world.js').World;
 
 	this.When(/^user has clicked on the Publications link$/, function(callback) {
+		homePage.mobileNavBarTreat(this);
 		homePage.publicationsTab(this).click();
 		callback();
 	});
@@ -19,8 +20,8 @@ module.exports = function() {
 		callback();
 	});
 
-	this.When(/^user has selected Browse Titles$/, function(callback) {
-		
+	this.When(/^user has selected Browse Titles$/, function(callback) {		
+		proceedingPage.mobileEditTreat(this);
 		proceedingPage.loadBrowseTitlesTab(this);
 		proceedingPage.browseTitlesTab(this).click();
 		callback();
@@ -48,6 +49,7 @@ module.exports = function() {
 	});
 
 	this.Then(/^there will be a list of related content on the Related tab$/, function(callback) {
+		proceedingPage.mobileArticleMenuTreat(this);
 		proceedingPage.relatedLink(this).click();
 		this.driver.sleep(10000);
 		proceedingPage.relatedItems(this).then(function(elems) {

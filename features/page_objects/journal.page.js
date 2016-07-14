@@ -33,7 +33,11 @@ module.exports = {
 	contributedArticleTitle : function(my, order) {
 		return my.driver.findElement({ xpath : '//div[@class="articleInToc"]/ul/li[' + order + ']/div/div/h5/span/a' });		
 	},
-
+	
+	mobileEditButton : function(my, order) {
+		return my.driver.findElement({ xpath : '//*[@id="content"]/div[4]/span[contains(normalize-space(@class), \'ham-icon\')]/span[@class="aip-icon-menu3"]' });		
+	},
+	
 	
     // **********************************************************************
 
@@ -43,6 +47,22 @@ module.exports = {
 	
 	checkSignInAlert : function(my) {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//div[@class=\'signInOrRegisterWrapper\']/div[contains(normalize-space(@style), \'display: block\')]'));	
-	}
+	},
+
 	
+    // **********************************************************************
+	
+	/*
+	 *    Utilities
+	 */
+	
+	mobileEditTreat : function(my) {
+		var currentPage = this;
+		my.driver.sleep(1000);
+		this.mobileEditButton(my).isDisplayed().then(function(displayed) {
+			if (displayed) {
+				currentPage.mobileEditButton(my).click();
+			}
+		});
+	}
 };

@@ -31,7 +31,8 @@ module.exports = function() {
 		callback();
 	});
 		
-	this.When(/^user clicks on Modify Search$/, function(callback) {		
+	this.When(/^user clicks on Modify Search$/, function(callback) {	
+		searchResultPage.mobileEditTreat(this);
 		searchResultPage.modifySearchButton(this).click();
 		callback();
 	});

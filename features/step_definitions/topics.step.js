@@ -37,7 +37,6 @@ module.exports = function() {
 	});
 	
 	this.When(/^user clicks the next button at the bottom of the page$/, function(callback) {
-		// this.driver.sleep(2000);
 		topicsPage.loadCurrentPageSpan(this);
 		topicsPage.checkCurrentPageSpan(this).then(function(present) {
 			expect(present).to.equal(true);
@@ -52,8 +51,7 @@ module.exports = function() {
 	
 	this.When(/^user clicks a topic in the topic facet$/, function(callback) {
 		var myworld = this;		
-		var shared = {};
-		
+		var shared = {};		
 		topicsPage.loadExplanationText(this);
 		topicsPage.explanationText(this).getText().then(function(txt) {
 			shared.sum = topicsPage.getExplanationTextTotalNumber(txt);			
@@ -81,6 +79,15 @@ module.exports = function() {
 		});		
 		callback();
 	});
+	
+	this.When(/^user clicks a topic in the topic facet \(mobile\)$/, function(callback) {
+		var myworld = this;			
+		topicsPage.loadExplanationText(this);
+		topicsPage.mobileFilterButton(myworld).click();
+		myworld.driver.sleep(2000);
+		topicsPage.facetItem(myworld, 'topic', 3).click();
+		callback();
+	});	
 
 	this.When(/^user clicks the Physics Today tab$/, function(callback) {
 		topicsPage.physicsTodayTab(this).click();
@@ -107,6 +114,17 @@ module.exports = function() {
 		var myworld = this;		
 		topicsPage.checkTopicBackLink(myworld).then(function(present) {
 			expect(present).to.equal(true);
+		});		
+		callback();
+	});
+	
+	this.Then(/^results are filtered by topic \(mobile\)$/, function(callback) {
+		var myworld = this;		
+		topicsPage.checkMobileBackLink(myworld).then(function(present) {
+			expect(present).to.equal(true);			
+		}).then(function() {
+			topicsPage.mobileBackLink(myworld).click();
+			myworld.driver.sleep(2000);
 		});
 		callback();
 	});
@@ -118,6 +136,8 @@ module.exports = function() {
 	});
 	
 	this.When(/^user selects a more specific topic "([^"]*)"$/, function(topic, callback) {
+		topicsPage.mobileSpecificTopicsTreat(this);
+		this.driver.sleep(2000);
 		topicsPage.moreSpecificItem(this, topic).click();
 		callback();
 	});
@@ -138,7 +158,6 @@ module.exports = function() {
 	});
 	
 	this.Then(/^the next page of results will be displayed$/, function(callback) {
-		// topicsPage.vanishCurrentPageSpan(this);
 		this.driver.sleep(10000);
 		topicsPage.loadCurrentPageSpan(this);
 		topicsPage.loadCurrentPageSpan_newText(this, 2);
@@ -149,7 +168,7 @@ module.exports = function() {
 	});
 	
 	this.Then(/^results will also be filtered by topic$/, function(callback) {
-		this.driver.sleep(10000);		
+		this.driver.sleep(5000);		
 		topicsPage.explanationText(this).getText().then(function(txt) {	
 			expect(txt).to.contain('(Content contains ‘Physics Today’)');
 		});
@@ -166,7 +185,7 @@ module.exports = function() {
 	});
 	
 	this.When(/^the new "([^"]*)" page will display$/, function(topic, callback) {
-		this.driver.sleep(2000);
+		this.driver.sleep(5000);
 		topicsPage.topicHeader(this).getText().then(function(txt) {
 			expect(txt).to.equal(topic);
 		});

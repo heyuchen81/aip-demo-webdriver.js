@@ -6,10 +6,10 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 
-		tag_chrome :  '--tags @debug3', // '--tags @chrome_live',  
+		tag_chrome : '--tags @chrome_live', // '--tags @debug_m2',  // '--tags @debug_chrome', 
 		tag_firefox : '--tags @common,@firefox',
 		tag_bs_pc1 : '--tags @bs_pc1', // '--tags @debug1', 
-		tag_bs_m1 : '--tags @debug_m1', // '--tags @bs_m1',
+		tag_bs_m1 : '--tags @bs_m1', // '--tags @debug_m1', 
 	
 		env : {
 			chrome : {

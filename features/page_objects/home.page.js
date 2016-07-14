@@ -13,18 +13,30 @@ module.exports = {
 	quickSearchBox : function(my) {
 		return my.driver.findElement({ id : 'quickSearchBox' }); 		
 	},
+	
+	searchToggle : function(my) {
+		return my.driver.findElement({ xpath : '//*[@id="header"]/div[@class="row"]/div/div[@class="buttons_wrapper"]/button[@data-toggle="#searchBox"]' }); 		
+	},		
+	
+	hambergerToggle : function(my) {            
+		return my.driver.findElement({ xpath : '//*[@id="header"]/div[@class="row"]/div/div[@class="buttons_wrapper"]/button[@data-toggle="#navWrapper"]' }); 		
+	},
+
+	loginToggle : function(my) {            
+		return my.driver.findElement({ xpath : '//*[@id="header"]/div[@class="row"]/div/div[@class="buttons_wrapper"]/button[@data-toggle="#loginWrapper"]' }); 		
+	},
 
 	autocompleteItem : function(my, order) {
 		var listorder = order + 1;
 		return my.driver.findElement({ id : 'ui-id-' + listorder }); 		
 	},
 	
-	publicationsTab : function(my) {
-		return my.driver.findElement({ xpath : '//div[@id=\'navbar\']/ul/li[@id=\'aip_publications\']/a/span' }); 		
-	},
+	publicationsTab : function(my) {            
+		return my.driver.findElement({ xpath : '//*[@id="nav-publications"]/span' }); 		
+	},                                          
 	
 	registerLink : function(my) {
-		return my.driver.findElement({ xpath : '//*[@id="loginBox"]/ul/li[3]/a' }); 	
+		return my.driver.findElement({ xpath : '//*[@id="loginBox"]/ul/li[3]/a' });
 	},
 
 	signInLink : function(my) {
@@ -85,6 +97,36 @@ module.exports = {
 		
 	waitForTimeout : function() {
 		return 30;      
-	}
+	},
 	
+	mobileSearchTreat : function(my) {
+		var currentPage = this;
+		my.driver.sleep(1000);
+		this.searchToggle(my).isDisplayed().then(function(displayed) {
+			if (displayed) {
+				currentPage.searchToggle(my).click();
+			}
+		});
+	},
+	
+	mobileNavBarTreat : function(my) {
+		var currentPage = this;
+		my.driver.sleep(1000);
+		this.hambergerToggle(my).isDisplayed().then(function(displayed) {
+			if (displayed) {
+				currentPage.hambergerToggle(my).click();
+			}
+		});
+	},
+	
+	mobileLoginTreat : function(my) {
+		var currentPage = this;
+		my.driver.sleep(1000);
+		this.loginToggle(my).isDisplayed().then(function(displayed) {
+			if (displayed) {
+				currentPage.loginToggle(my).click();
+			}
+		});
+	}
+
 };

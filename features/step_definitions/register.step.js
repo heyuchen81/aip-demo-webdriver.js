@@ -9,14 +9,12 @@ module.exports = function() {
 	this.World = require('../support/world.js').World;
 
 	this.Given(/^user is on the registration page$/, function(callback) {
-		this.driver.manage().window().setSize(1500, 1000);
+		homePage.mobileLoginTreat(this);
 		homePage.registerLink(this).click();
 		callback();
 	});
 	
-	this.Given(/^user has completed all fields$/, function(callback) {	
-		var myworld = this;
-		homePage.registerLink(this).click();
+	this.When(/^user has completed all fields$/, function(callback) {	
 		registerPage.nameBox(this).sendKeys('Xin He');
 		registerPage.emailBox(this).sendKeys('emailbox');
 		registerPage.emailBox2(this).sendKeys('emailbox');

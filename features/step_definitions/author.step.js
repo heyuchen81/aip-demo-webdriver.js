@@ -11,7 +11,6 @@ module.exports = function() {
 
 	this.Given(/^user is on "([^"]*)" author page$/, function(name, callback) {
 		var myworld = this;	
-		this.driver.manage().window().setSize(1500, 1000);
 		homePage.quickSearchBox(this).sendKeys(name);
 		this.driver.sleep(500);
 		homePage.quickSearchBox(this).submit();		
@@ -69,7 +68,6 @@ module.exports = function() {
 	});
 	
 	this.When(/^user clicks the next button at the bottom of the author page$/, function(callback) {
-		// this.driver.sleep(2000);
 		authorPage.loadCurrentPageSpan(this);
 		authorPage.checkCurrentPageSpan(this).then(function(present) {
 			expect(present).to.equal(true);

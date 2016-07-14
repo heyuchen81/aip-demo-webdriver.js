@@ -10,6 +10,7 @@ module.exports = function() {
 
 	this.Given(/^user is on search results page after searching for "([^"]*)"$/, function(keywords, callback) {	
 		var myworld = this;	
+		homePage.mobileSearchTreat(this);
 		homePage.quickSearchBox(this).sendKeys(keywords);
 		this.driver.sleep(500);
 		homePage.quickSearchBox(this).submit();		
@@ -23,7 +24,7 @@ module.exports = function() {
 		callback();
 	});
 	
-	this.Given(/^user filters results by topic$/, function(callback) {			
+	this.When(/^user filters results by topic$/, function(callback) {			
 		var myworld = this;		
 		var shared = {};
 		searchResultPage.explanationText(this).getText().then(function(txt) {
@@ -48,8 +49,19 @@ module.exports = function() {
 		callback();
 	});
 	
-	this.Given(/^user has entered performed a quick search for an author "([^"]*)"$/, function(authorname, callback) {	
+	this.When(/^user filters results by topic \(mobile\)$/, function(callback) {			
+		searchResultPage.mobileFilterButton(this).click();
+		this.driver.sleep(2000);
+		searchResultPage.mobileFacetCategory(this, 'topic').click();
+		this.driver.sleep(2000);
+		searchResultPage.mobileFacetItem(this, 3).click();
+		this.driver.sleep(2000);
+		callback();
+	});
+	
+	this.When(/^user has entered performed a quick search for an author "([^"]*)"$/, function(authorname, callback) {	
 		var myworld = this;	
+		homePage.mobileSearchTreat(this);
 		homePage.quickSearchBox(this).sendKeys(authorname);
 		this.driver.sleep(500);
 		homePage.quickSearchBox(this).submit();		
@@ -83,6 +95,11 @@ module.exports = function() {
 		}).then(function(txt) {
 			expect(searchResultPage.getExplanationTextTotalNumber(txt)).to.not.equal(shared.part);
 		});	
+		callback();
+	});
+	
+	this.When(/^user removes the filter \(mobile\)$/, function(callback) {
+		searchResultPage.mobileFacetCancel(this).click();
 		callback();
 	});
 
@@ -149,6 +166,7 @@ module.exports = function() {
 		}).then(function(present) {
 			expect(present).to.equal(true);
 		}).then(function() {
+			searchResultPage.mobileSortTreat(myworld);
 			searchResultPage.sortDesButton(myworld).click();
 		});
 		callback();
@@ -176,6 +194,7 @@ module.exports = function() {
 		}).then(function(elems) {
 			expect(elems.length).to.be.above(0);
 		}).then(function() {
+			searchResultPage.mobileEditTreat(myworld);
 			searchResultPage.searchResultRefineInput(myworld).sendKeys(keywords);
 			searchResultPage.searchResultRefineInput(myworld).submit();
 			searchResultPage.loadExplanationText_newText(myworld, '(About contains ‘' + keywords + '’)');
@@ -244,6 +263,23 @@ module.exports = function() {
 		}).then(function(present) {
 			expect(present).to.equal(true);
 			return searchResultPage.facetItem(myworld, 'topic', 3).getText();
+		}).then(function(txt) {
+			expect(searchResultPage.getFacetItemNumber(txt)).to.not.equal(shared.sum);
+		});
+		callback();
+	});
+	
+	this.Then(/^full search results will be displayed \(mobile\)$/, function(callback) {
+		var myworld = this;		
+		var shared = {};
+		searchResultPage.explanationText(this).getText().then(function(txt) {
+			shared.sum = searchResultPage.getExplanationTextTotalNumber(txt);					
+		}).then(function() {
+			searchResultPage.mobileFilterButton(myworld).click();
+			myworld.driver.sleep(2000);
+			searchResultPage.mobileFacetCategory(myworld, 'topic').click();
+			myworld.driver.sleep(2000);
+			return searchResultPage.mobileFacetItem(myworld, 3).getText();
 		}).then(function(txt) {
 			expect(searchResultPage.getFacetItemNumber(txt)).to.not.equal(shared.sum);
 		});
@@ -366,7 +402,6 @@ module.exports = function() {
 			return searchResultPage.checkFacetItem(myworld, 'topic', 1);
 		}).then(function(present) {
 			expect(present).to.equal(false);
-			// searchResultPage.loadExplanationText(myworld);	
 		});
 		callback();
 	});
