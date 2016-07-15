@@ -168,7 +168,7 @@ module.exports = function() {
 	
 	this.Then(/^results will also be filtered by topic$/, function(callback) {
 		this.driver.sleep(5000);		
-		topicsPage.loadExplanationText_newText(myworld, '(Content contains ‘Physics Today’)');
+		topicsPage.loadExplanationText_newText(this, '(Content contains ‘Physics Today’)');
 		topicsPage.explanationText(this).getText().then(function(txt) {	
 			expect(txt).to.contain('(Content contains ‘Physics Today’)');
 		});
