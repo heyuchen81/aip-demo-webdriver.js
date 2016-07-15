@@ -100,7 +100,13 @@ module.exports = function() {
 	});
 
 	this.Then(/^search results page is displayed$/, function(callback) {
-		homePage.pageTitle(this).then(function(title) {
+		var mydriver = this;
+		this.driver.getPageSource().then(function(src) {
+		    console.log(src);
+		    return homePage.pageTitle(mydriver);
+	    }).then(function(title) {
+	    	console.log('CURRENT PAGE TITLE IS: ' + title);
+		//homePage.pageTitle(this).then(function(title) {
 			expect(title).to.equal('Search Results');
 		});
 		callback();
