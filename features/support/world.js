@@ -39,11 +39,15 @@ var buildBsDriver_M1 = function() {
 //		'platform' : 'MAC',
 //		'device' : 'iPhone 6S Plus',
 		
-		 'browserName' : 'Safari',
-		 'browser_version' : '9.1',
-		 'os' : 'OS X',
-		 'os_version' : 'El Capitan',
-		 'resolution' : '1024x768',
+//		 'browserName' : 'Safari',
+//		 'browser_version' : '9.1',
+//		 'os' : 'OS X',
+//		 'os_version' : 'El Capitan',
+//		 'resolution' : '1024x768',
+		 
+		 'browserName' : 'android',
+		 'platform' : 'ANDROID',
+		 'device' : 'Samsung Galaxy S5',
 		
 		'browserstack.user' : process.env.USERNAME,
 		'browserstack.key' : process.env.AUTOMATE_KEY,
