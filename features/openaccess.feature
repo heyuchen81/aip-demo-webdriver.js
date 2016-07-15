@@ -12,57 +12,57 @@ Scenario: Quick Search Suggestions
   When user selects one of the options
   Then search results page is displayed
 
-@common @chrome_live @firefox @bs_pc1 
+@common @chrome_live @firefox @bs_pc1
 Scenario: Quick Search Filters
   Given user is on search results page after searching for "climate changes in china" 
   When user filters results by topic
   And user removes the filter
   Then full search results will be displayed
   
- @common @bs_m1 @debug_m2
-Scenario: Quick Search Filters (mobile)
+ @common @bs_m1 @debug_m
+Scenario: Quick Search Filters (mobile) 
   Given user is on search results page after searching for "climate changes in china" 
   When user filters results by topic (mobile)
   And user removes the filter (mobile)
   Then full search results will be displayed (mobile)
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m1
+@common @chrome_live @firefox @bs_pc1 @bs_m1 
 Scenario: Quick Search More Button
   Given user is on search results page after searching for "search engines" 
   When user clicks the More button at the bottom
   Then 20 more results will be displayed
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m1
+@common @chrome_live @firefox @bs_pc1 @bs_m1 
 Scenario: Quick Search Sort
   Given user is on search results page after searching for "ingenta" 
   When user sorts by Newest First
   Then the results will be sorted by date
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m1
+@common @chrome_live @firefox @bs_pc1 @bs_m1 
 Scenario: Quick Search Descriptions
   Given user is on search results page after searching for "vacuum technology video instruction"
   When clicks view description for the first article
   Then the description will be displayed
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m1
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Quick Search Refine
   Given user is on search results page after searching for "technology"
   When user refines their search with "computer"
   Then refined search results will be displayed
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m1
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Quick Search Physics Today Tab
   Given user is on search results page after searching for "modern history"
   When user reviews the Physics Today tab
   Then results are displayed for physics today
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m1
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Quick Search Related Databases tab
   Given user is on search results page after searching for "modern history"
   When user reviews the Related Databases tab
   Then results are displayed for related databases
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @bs_m1 
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @bs_m1 @debug_m
 Scenario: Advanced Search Submit
   Given user is on advanced search page
   When user enters keywords "technology" into the first field
@@ -70,14 +70,14 @@ Scenario: Advanced Search Submit
   When user clicks on the Search button
   Then search results page is returned
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Advanced Search Modify Search
   Given user is on search results page after searching for "factory automation"
   When user clicks on Modify Search
   Then user is taken to advanced search page
   And search terms "factory automation" are entered into the fields
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Advanced Search Search Within
   Given user is on advanced search page
   When user enters keywords "computer technology" into the first field
@@ -88,7 +88,7 @@ Scenario: Advanced Search Search Within
   And user clicks on the Search button
   Then search results are displayed only for these topics
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Conference Proceedings Browse
   When user has clicked on the Publications link
   And user has selected "AIP Conference Proceedings"
@@ -98,7 +98,7 @@ Scenario: Conference Proceedings Browse
   Then the conference paper will be displayed
   And there will be a list of related content on the Related tab
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Topic Page
   Given user is on topics page
   When user clicks on go to topic link beside topic "Energy"
@@ -146,7 +146,7 @@ Scenario: Topic Page More Specific Topic
   When user selects a more specific topic "Number theory"
   Then the new "Number theory" page will display 
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Navigate To Author Page
   When user has entered performed a quick search for an author "R. L. Kustom"
   And user selects the author name "R. L. Kustom"
@@ -200,19 +200,19 @@ Scenario: Unsuccessful Registration
   When user clicks on the registration button
   Then user will be taken to the not authorized page
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Journal Most Read RSS Feeds
   Given user is on "American Journal of Physics" journal page
   When user clicks on the most read rss icon
   Then the rss feed will open
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Journal Email alerts
   Given user is on "Biomicrofluidics" journal browse tab
   When user clicks on the subscribe to email alerts link
   Then the content alerts link will be displayed
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Journal Article
   Given user is on "Biomicrofluidics" journal browse tab
   When user clicks on an article title
@@ -238,7 +238,7 @@ Scenario: My Account Favourites
   #And user clicks the checkout button
   #Then user will be taken to the billing address page
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2 @debug_pc1
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Homepage RSS Feeds
   When user has clicked on the most cited rss icon
   Then the rss feed will be displayed

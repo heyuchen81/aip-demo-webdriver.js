@@ -68,6 +68,7 @@ module.exports = function() {
 		
 	this.When(/^user selects one of the options$/, function(callback) {
 		homePage.autocompleteItem(this, 2).click();
+		this.driver.sleep(5000);
 		callback();
 	});
 		
