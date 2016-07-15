@@ -168,6 +168,7 @@ module.exports = function() {
 	
 	this.Then(/^results will also be filtered by topic$/, function(callback) {
 		this.driver.sleep(5000);		
+		topicsPage.loadExplanationText_newText(myworld, '(Content contains ‘Physics Today’)');
 		topicsPage.explanationText(this).getText().then(function(txt) {	
 			expect(txt).to.contain('(Content contains ‘Physics Today’)');
 		});
@@ -184,7 +185,7 @@ module.exports = function() {
 	});
 	
 	this.When(/^the new "([^"]*)" page will display$/, function(topic, callback) {
-		this.driver.sleep(5000);
+		this.driver.sleep(10000);
 		topicsPage.topicHeader(this).getText().then(function(txt) {
 			expect(txt).to.equal(topic);
 		});

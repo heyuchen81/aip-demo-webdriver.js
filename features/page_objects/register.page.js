@@ -1,5 +1,7 @@
 'use strict';
 
+var homePage = require('../page_objects/home.page.js');
+
 module.exports = {
 		
 	/* 
@@ -63,7 +65,7 @@ module.exports = {
 
 	loadNameBox: function(my) {
 		var expireMessage = 'Name Box was still not present when it should have appeared.'
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.id('user_name')), this.waitForTimeout() * 1000, expireMessage);			
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.id('user_name')), homePage.waitForTimeout() * 1000, expireMessage);			
 	}
 	
 };

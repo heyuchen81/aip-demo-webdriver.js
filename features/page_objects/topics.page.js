@@ -146,7 +146,11 @@ module.exports = {
 	
 	loadAuthor : function(my, order) {										    
 		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[contains(normalize-space(@class), \'searchResultsContainerInner\')]/div[@class="resultItemContainer "][' + order + ']')), homePage.waitForTimeout() * 1000, 'Author ' + order +' was still not active when it should have appeared.');		
-	},																										     
+	},				
+	
+	loadExplanationText_newText : function(my, text) {
+		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), text), homePage.waitForTimeout() * 1000, 'The Explanation Text (with new text ' + text + ') was still not present when it should have appeared.');	
+	},
 	
 	
     // **********************************************************************
