@@ -100,7 +100,10 @@ module.exports = function() {
 	});
 	
 	this.When(/^user removes the filter \(mobile\)$/, function(callback) {
-		searchResultPage.mobileFacetCancel(this).click();
+		this.driver.getPageSource().then(function(src) {
+		    console.log(src);
+		    searchResultPage.mobileFacetCancel(this).click();
+	    });
 		callback();
 	});
 
