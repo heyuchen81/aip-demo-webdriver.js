@@ -19,18 +19,6 @@ Scenario: Quick Search Filters
   And user removes the filter
   Then full search results will be displayed
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 @common @bs_m1 @debug_m1
 Scenario: Quick Search Filters (mobile) 
   Given user is on search results page after searching for "climate changes in china" 
