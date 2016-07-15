@@ -81,6 +81,39 @@ module.exports = {
 		var expireMessage = 'Sign-in Password Box was still not present when it should have appeared.'
 		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.id('signpsswd')), this.waitForTimeout() * 1000, expireMessage);			
 	},
+		
+	showQuickSearchBox : function(my) {
+		var currentPage = this;
+		var expireMessage = 'Quick Search Box was still not displayed when it should have appeared.'
+		my.driver.wait(function () {
+	        return currentPage.quickSearchBox(my).isDisplayed().then(function (displayed) {
+	            if (!displayed) return false;
+	            return currentPage.quickSearchBox(my).isEnabled();
+	        });
+	    }, currentPage.waitForTimeout() * 1000, expireMessage);
+	},
+	
+	showPublicationsTab : function(my) {
+		var currentPage = this;
+		var expireMessage = 'Publications Tab was still not displayed when it should have appeared.'
+		my.driver.wait(function () {
+	        return currentPage.publicationsTab(my).isDisplayed().then(function (displayed) {
+	            if (!displayed) return false;
+	            return currentPage.publicationsTab(my).isEnabled();
+	        });
+	    }, currentPage.waitForTimeout() * 1000, expireMessage);
+	},
+	
+	showSignInUsernameBox : function(my) {
+		var currentPage = this;
+		var expireMessage = 'SignIn Username Box was still not displayed when it should have appeared.'
+		my.driver.wait(function () {
+	        return currentPage.signInUsernameBox(my).isDisplayed().then(function (displayed) {
+	            if (!displayed) return false;
+	            return currentPage.signInUsernameBox(my).isEnabled();
+	        });
+	    }, currentPage.waitForTimeout() * 1000, expireMessage);
+	},
 	
 	
     // **********************************************************************
@@ -101,30 +134,30 @@ module.exports = {
 	
 	mobileSearchTreat : function(my) {
 		var currentPage = this;
-		my.driver.sleep(1000);
 		this.searchToggle(my).isDisplayed().then(function(displayed) {
 			if (displayed) {
 				currentPage.searchToggle(my).click();
+				currentPage.showQuickSearchBox(my);
 			}
 		});
 	},
 	
 	mobileNavBarTreat : function(my) {
 		var currentPage = this;
-		my.driver.sleep(1000);
 		this.hambergerToggle(my).isDisplayed().then(function(displayed) {
 			if (displayed) {
 				currentPage.hambergerToggle(my).click();
+				currentPage.showPublicationsTab(my);
 			}
 		});
 	},
 	
 	mobileLoginTreat : function(my) {
 		var currentPage = this;
-		my.driver.sleep(1000);
 		this.loginToggle(my).isDisplayed().then(function(displayed) {
 			if (displayed) {
 				currentPage.loginToggle(my).click();
+				currentPage.showSignInUsernameBox(my);
 			}
 		});
 	}

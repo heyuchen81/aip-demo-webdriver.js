@@ -137,7 +137,6 @@ module.exports = function() {
 	
 	this.When(/^user selects a more specific topic "([^"]*)"$/, function(topic, callback) {
 		topicsPage.mobileSpecificTopicsTreat(this);
-		this.driver.sleep(2000);
 		topicsPage.moreSpecificItem(this, topic).click();
 		callback();
 	});

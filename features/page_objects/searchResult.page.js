@@ -155,6 +155,28 @@ module.exports = {
 		}, homePage.waitForTimeout() * 1000, 'The Explanation Text was still present when it should have disappeared.');		
 	},
 	
+	showMobileSortDdl : function(my) {
+		var currentPage = this;
+		var expireMessage = 'Mobile Sort Ddl was still not displayed when it should have appeared.'
+		my.driver.wait(function () {
+	        return currentPage.mobileSortDdl(my).isDisplayed().then(function (displayed) {
+	            if (!displayed) return false;
+	            return currentPage.mobileSortDdl(my).isEnabled();
+	        });
+	    }, homePage.waitForTimeout() * 1000, expireMessage);
+	},
+	
+	showSearchResultRefineInput : function(my) {
+		var currentPage = this;
+		var expireMessage = 'Search Result Refine Input was still not displayed when it should have appeared.'
+		my.driver.wait(function () {
+	        return currentPage.searchResultRefineInput(my).isDisplayed().then(function (displayed) {
+	            if (!displayed) return false;
+	            return currentPage.searchResultRefineInput(my).isEnabled();
+	        });
+	    }, homePage.waitForTimeout() * 1000, expireMessage);
+	},
+
 	
     // **********************************************************************
 	
@@ -177,10 +199,10 @@ module.exports = {
 	
 	mobileSortTreat : function(my) {
 		var currentPage = this;
-		my.driver.sleep(1000);
 		this.mobileSortDdl(my).isDisplayed().then(function(displayed) {
 			if (displayed) {
 				currentPage.mobileSortDdl(my).click();
+				currentPage.showMobileSortDdl(my);
 			}
 		});
 	},
@@ -191,6 +213,7 @@ module.exports = {
 		this.mobileEditButton(my).isDisplayed().then(function(displayed) {
 			if (displayed) {
 				currentPage.mobileEditButton(my).click();
+				currentPage.showSearchResultRefineInput(my);
 			}
 		});
 	},

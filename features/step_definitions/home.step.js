@@ -9,8 +9,8 @@ module.exports = function() {
 
 	this.Given(/^user has accessed the Scitation homepage$/, function(callback) {		
 		if (process.env.PLATFORM.toLowerCase() === 'chrome' || process.env.PLATFORM.toLowerCase() === 'firefox'){
-			this.driver.manage().window().setSize(1366, 768);
-			// this.driver.manage().window().setSize(666, 768);
+			// this.driver.manage().window().setSize(1366, 768);
+			this.driver.manage().window().setSize(666, 768);
 		}
 		homePage.load(this);
 		// homePage.loadRemote(this);

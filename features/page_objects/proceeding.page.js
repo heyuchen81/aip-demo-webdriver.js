@@ -55,7 +55,31 @@ module.exports = {
 	checkArticleTabs : function(my) {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//div[@id=\'articleTabs\']'));	
 	},
+	
+	showBrowseTitlesTab : function(my) {
+		var currentPage = this;
+		var expireMessage = 'Browse Titles Tab was still not displayed when it should have appeared.'
+		my.driver.wait(function () {
+	        return currentPage.browseTitlesTab(my).isDisplayed().then(function (displayed) {
+	            if (!displayed) return false;
+	            return currentPage.browseTitlesTab(my).isEnabled();
+	        });
+		 }, homePage.waitForTimeout() * 1000, expireMessage);
+	},
 		
+	showRelatedLink : function(my) {
+		var currentPage = this;
+		var expireMessage = 'Related Link was still not displayed when it should have appeared.'
+		my.driver.wait(function () {
+	        return currentPage.relatedLink(my).isDisplayed().then(function (displayed) {
+	            if (!displayed) return false;
+	            return currentPage.relatedLink(my).isEnabled();
+	        });
+		 }, homePage.waitForTimeout() * 1000, expireMessage);
+	},
+	
+	
+	
 	
     // **********************************************************************
 
@@ -65,10 +89,10 @@ module.exports = {
 	
 	mobileEditTreat : function(my) {
 		var currentPage = this;
-		my.driver.sleep(1000);
 		this.mobileMenuButton(my).isDisplayed().then(function(displayed) {
 			if (displayed) {
 				currentPage.mobileMenuButton(my).click();
+				currentPage.showBrowseTitlesTab(my);
 			}
 		});
 	},
@@ -79,6 +103,7 @@ module.exports = {
 		this.mobileArticleMenuButton(my).isDisplayed().then(function(displayed) {
 			if (displayed) {
 				currentPage.mobileArticleMenuButton(my).click();
+				currentPage.showRelatedLink(my);
 			}
 		});
 	},

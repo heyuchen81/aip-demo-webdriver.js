@@ -166,10 +166,10 @@ module.exports = {
 	
 	mobileSpecificTopicsTreat : function(my) {
 		var currentPage = this;
-		my.driver.sleep(1000);
 		this.mobileSpecificTopics(my).isDisplayed().then(function(displayed) {
 			if (displayed) {
 				currentPage.mobileSpecificTopics(my).click();
+				my.driver.sleep(3000);
 			}
 		});
 	}

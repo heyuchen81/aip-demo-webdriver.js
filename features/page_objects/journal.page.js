@@ -1,5 +1,7 @@
 'use strict';
 
+var homePage = require('../page_objects/home.page.js');
+
 module.exports = {
 		
 	/* 
@@ -48,6 +50,17 @@ module.exports = {
 	checkSignInAlert : function(my) {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//div[@class=\'signInOrRegisterWrapper\']/div[contains(normalize-space(@style), \'display: block\')]'));	
 	},
+	
+	showBrowseLink : function(my) {
+		var currentPage = this;
+		var expireMessage = 'Browse Link was still not displayed when it should have appeared.'
+		my.driver.wait(function () {
+	        return currentPage.browseLink(my).isDisplayed().then(function (displayed) {
+	            if (!displayed) return false;
+	            return currentPage.browseLink(my).isEnabled();
+	        });
+	    }, homePage.waitForTimeout() * 1000, expireMessage);
+	},
 
 	
     // **********************************************************************
@@ -58,10 +71,10 @@ module.exports = {
 	
 	mobileEditTreat : function(my) {
 		var currentPage = this;
-		my.driver.sleep(1000);
 		this.mobileEditButton(my).isDisplayed().then(function(displayed) {
 			if (displayed) {
 				currentPage.mobileEditButton(my).click();
+				currentPage.showBrowseLink(my);
 			}
 		});
 	}
