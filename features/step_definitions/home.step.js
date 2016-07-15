@@ -12,7 +12,7 @@ module.exports = function() {
 			// this.driver.manage().window().setSize(1366, 768);
 			this.driver.manage().window().setSize(666, 768);
 		} else if (process.env.PLATFORM.toLowerCase() === 'browserstack_m1') {
-			//this.driver.manage().window().setSize(566, 768);
+			this.driver.manage().window().setSize(466, 768);
 		} 
 		homePage.load(this);
 		// homePage.loadRemote(this);
