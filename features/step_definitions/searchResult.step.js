@@ -50,13 +50,13 @@ module.exports = function() {
 		callback();
 	});
 	
-	this.When(/^user filters results by topic \(mobile\)$/, function(callback) {			
+	this.When(/^user filters results by topic \(mobile\)$/, function(callback) {
+		searchResultPage.showMobileFilterButton(this);
 		searchResultPage.mobileFilterButton(this).click();
-		this.driver.sleep(2000);
+		searchResultPage.showMobileFacetCategory(this, 'topic');		
 		searchResultPage.mobileFacetCategory(this, 'topic').click();
-		this.driver.sleep(2000);
+		searchResultPage.showMobileFacetItem(this, 3);
 		searchResultPage.mobileFacetItem(this, 3).click();
-		this.driver.sleep(2000);
 		callback();
 	});
 	
@@ -100,10 +100,7 @@ module.exports = function() {
 	});
 	
 	this.When(/^user removes the filter \(mobile\)$/, function(callback) {
-		this.driver.getPageSource().then(function(src) {
-		    console.log(src);
-		    searchResultPage.mobileFacetCancel(this).click();
-	    });
+		searchResultPage.mobileFacetCancel(this).click();
 		callback();
 	});
 

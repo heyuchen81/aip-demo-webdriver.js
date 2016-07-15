@@ -176,7 +176,40 @@ module.exports = {
 	        });
 	    }, homePage.waitForTimeout() * 1000, expireMessage);
 	},
-
+	
+	showMobileFilterButton : function(my) {
+		var currentPage = this;
+		var expireMessage = 'Mobile Filter Button was still not displayed when it should have appeared.'
+		my.driver.wait(function () {
+	        return currentPage.mobileFilterButton(my).isDisplayed().then(function (displayed) {
+	            if (!displayed) return false;
+	            return currentPage.mobileFilterButton(my).isEnabled();
+	        });
+	    }, homePage.waitForTimeout() * 1000, expireMessage);
+	},
+	
+	showMobileFacetCategory : function(my, category) {
+		var currentPage = this;
+		var expireMessage = 'Mobile Facet Category \'' + category + '\' was still not displayed when it should have appeared.'
+		my.driver.wait(function () {
+	        return currentPage.mobileFacetCategory(my, category).isDisplayed().then(function (displayed) {
+	            if (!displayed) return false;
+	            return currentPage.mobileFacetCategory(my, category).isEnabled();
+	        });
+	    }, homePage.waitForTimeout() * 1000, expireMessage);
+	},
+	
+	showMobileFacetItem : function(my, order) {
+		var currentPage = this;
+		var expireMessage = 'Mobile Facet Item was still not displayed when it should have appeared.'
+		my.driver.wait(function () {
+	        return currentPage.mobileFacetItem(my, order).isDisplayed().then(function (displayed) {
+	            if (!displayed) return false;
+	            return currentPage.mobileFacetItem(my, order).isEnabled();
+	        });
+	    }, homePage.waitForTimeout() * 1000, expireMessage);
+	},
+	
 	
     // **********************************************************************
 	
