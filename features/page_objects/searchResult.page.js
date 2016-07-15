@@ -92,6 +92,7 @@ module.exports = {
 	
 	mobileFacetItem : function(my, order) {
 		return my.driver.findElement({ xpath : '//*[@id="searchResultsContainer"]/div/div/div[@class="search-facet-mobile-container"]/div[@class="facets"]/ul[contains(normalize-space(@class), \'hiddenFacetList\')]/li[' + order +']' });
+		                                        //*[@id="searchResultsContainer"]/div[2]/div/div/div/ul[1]/li[3]/a
 	},
 	
 	mobileFacetCancel : function(my, order) {

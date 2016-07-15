@@ -35,9 +35,14 @@ var buildBsDriver_PC1 = function() {
 
 var buildBsDriver_M1 = function() {
 	var capabilities = {
-		'browserName' : 'iPhone',
-		'platform' : 'MAC',
-		'device' : 'iPhone 6S Plus',
+//		'browserName' : 'iPhone',
+//		'platform' : 'MAC',
+//		'device' : 'iPhone 6S Plus',
+		
+		'browserName' : 'iPad',
+		 'platform' : 'MAC',
+		 'device' : 'iPad Air 2',
+		
 		'browserstack.user' : process.env.USERNAME,
 		'browserstack.key' : process.env.AUTOMATE_KEY,
 		'browserstack.debug' : 'true',
