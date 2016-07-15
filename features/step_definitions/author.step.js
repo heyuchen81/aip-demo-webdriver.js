@@ -81,8 +81,10 @@ module.exports = function() {
 	});
 	
 	this.Then(/^the "([^"]*)" author page is displayed$/, function(name, callback) {
+		var myworld = this;
 		authorPage.nameHeader(this).getText().then(function(txt) {
 			expect(txt).to.equal(name);
+			myworld.driver.sleep(5000);
 		});		
 		callback();
 	});

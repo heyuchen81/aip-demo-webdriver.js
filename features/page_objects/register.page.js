@@ -52,6 +52,18 @@ module.exports = {
 	
 	registerButton : function(my) {
 		return my.driver.findElement({ xpath : '//*[@id="regForm"]/div[7]/input' }); 	
+	},
+	
+	
+	// **********************************************************************
+
+	/*
+	 *    Actions
+	 */
+
+	loadNameBox: function(my) {
+		var expireMessage = 'Name Box was still not present when it should have appeared.'
+		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.id('user_name')), this.waitForTimeout() * 1000, expireMessage);			
 	}
 	
 };

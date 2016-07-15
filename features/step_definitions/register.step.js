@@ -11,18 +11,20 @@ module.exports = function() {
 	this.Given(/^user is on the registration page$/, function(callback) {
 		homePage.mobileLoginTreat(this);
 		homePage.registerLink(this).click();
+		this.driver.wait
 		callback();
 	});
 	
 	this.When(/^user has completed all fields$/, function(callback) {	
+		registerPage.loadNameBox(this);
 		registerPage.nameBox(this).sendKeys('Xin He');
-		registerPage.emailBox(this).sendKeys('emailbox');
-		registerPage.emailBox2(this).sendKeys('emailbox');
+		registerPage.emailBox(this).sendKeys('emailbox@ingenta.com');
+		registerPage.emailBox2(this).sendKeys('emailbox@ingenta.com');
 		registerPage.countryDdl(this).click();
 		registerPage.countryDdlOption(this).click();
-		registerPage.usernameBox(this).sendKeys('xhe');		
-		registerPage.passwordBox(this).sendKeys('xhe');		
-		registerPage.passwordBox2(this).sendKeys('xhe');		
+		registerPage.usernameBox(this).sendKeys('xin.he');		
+		registerPage.passwordBox(this).sendKeys('password');		
+		registerPage.passwordBox2(this).sendKeys('password');		
 		registerPage.notRobot(this).click();
 		callback();
 	});
