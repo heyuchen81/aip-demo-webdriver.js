@@ -11,7 +11,6 @@ module.exports = function() {
 	this.Given(/^user is on the registration page$/, function(callback) {
 		homePage.mobileLoginTreat(this);
 		homePage.registerLink(this).click();
-		this.driver.wait
 		callback();
 	});
 	
