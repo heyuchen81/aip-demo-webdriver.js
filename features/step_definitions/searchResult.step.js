@@ -14,7 +14,7 @@ module.exports = function() {
 		homePage.quickSearchBox(this).sendKeys(keywords);
 		this.driver.sleep(500);
 		homePage.quickSearchBox(this).submit();		
-		this.driver.sleep(5000);
+		this.driver.sleep(10000);
 		homePage.pageTitle(this).then(function(title) {
 			expect(title).to.equal('Search Results');
 		}).then(function() {
