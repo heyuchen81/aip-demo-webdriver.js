@@ -39,9 +39,9 @@ var buildBsDriver_M1 = function() {
 //		'platform' : 'MAC',
 //		'device' : 'iPhone 6S Plus',
 		
-		'browserName' : 'iPad',
-		 'platform' : 'MAC',
-		 'device' : 'iPad Air 2',
+			'browserName' : 'iPad',
+			 'platform' : 'MAC',
+			 'device' : 'iPad Mini 4',
 		
 		'browserstack.user' : process.env.USERNAME,
 		'browserstack.key' : process.env.AUTOMATE_KEY,
