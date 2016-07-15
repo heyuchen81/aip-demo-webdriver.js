@@ -7,6 +7,11 @@ Background:
   Given user has accessed the Scitation homepage
 
 @common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+Scenario: Homepage RSS Feeds
+  When user has clicked on the most cited rss icon
+  Then the rss feed will be displayed
+
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
 Scenario: Quick Search Suggestions
   Given user has entered a three letter string into quick search
   When user selects one of the options
@@ -237,11 +242,6 @@ Scenario: My Account Favourites
   #And user has opened the shopping cart page
   #And user clicks the checkout button
   #Then user will be taken to the billing address page
-
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
-Scenario: Homepage RSS Feeds
-  When user has clicked on the most cited rss icon
-  Then the rss feed will be displayed
 
 # No such window
 #@common @chrome @firefox @bs_pc1 @bs_m1 
