@@ -67,8 +67,10 @@ module.exports = {
 	},
 	
 	loadRemote : function(my) {
-		var suname = process.env.SERVER_UNAME;
-		var spwd= process.env.SERVER_PWD;
+//		var suname = process.env.SERVER_UNAME;
+//		var spwd= process.env.SERVER_PWD;
+		var suname = 'aipbeta';
+		var spwd = 'tn47ghd3';
 		my.driver.get('http://' + suname + ':' + spwd + '@x-aip-live-05.ingenta.com/');
 	},	
 

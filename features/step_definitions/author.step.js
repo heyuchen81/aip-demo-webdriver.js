@@ -11,6 +11,7 @@ module.exports = function() {
 
 	this.Given(/^user is on "([^"]*)" author page$/, function(name, callback) {
 		var myworld = this;	
+		homePage.mobileSearchTreat(this);
 		homePage.quickSearchBox(this).sendKeys(name);
 		this.driver.sleep(500);
 		homePage.quickSearchBox(this).submit();		

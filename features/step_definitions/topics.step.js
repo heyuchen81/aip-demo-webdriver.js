@@ -18,6 +18,7 @@ module.exports = function() {
 	this.Given(/^user is on topic page "([^"]*)"$/, function(topic, callback) {
 		var myworld = this;
 		topicsPage.loadTopic(this, topic);
+		this.driver.sleep(2000);
 		topicsPage.pageTitle(this).then(function(title) {
 			expect(title).to.equal(topic);
 		});

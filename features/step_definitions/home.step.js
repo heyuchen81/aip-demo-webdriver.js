@@ -9,10 +9,10 @@ module.exports = function() {
 
 	this.Given(/^user has accessed the Scitation homepage$/, function(callback) {		
 		if (process.env.PLATFORM.toLowerCase() === 'chrome' || process.env.PLATFORM.toLowerCase() === 'firefox'){
-			this.driver.manage().window().setSize(1366, 768);
+			// this.driver.manage().window().setSize(1366, 768);
 			// this.driver.manage().window().setSize(666, 768);
-		} else if (process.env.PLATFORM.toLowerCase() === 'browserstack_m1') {
-			this.driver.manage().window().setSize(466, 768);
+		} else if (process.env.PLATFORM.toLowerCase() === 'browserstack_m1' || process.env.PLATFORM.toLowerCase() === 'chrome_m') {
+			// this.driver.manage().window().setSize(466, 768);
 		} 
 		homePage.load(this);
 		// homePage.loadRemote(this);

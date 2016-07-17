@@ -10,6 +10,11 @@ var buildChromeDriver = function() {
 			webdriver.Capabilities.chrome()).build();
 };
 
+var buildChromeMDriver = function() {
+	return new webdriver.Builder().withCapabilities(
+			webdriver.Capabilities.chrome()).build();
+};
+
 var buildFirefoxDriver = function() {
 	return new webdriver.Builder().withCapabilities(
 			webdriver.Capabilities.firefox()).build();
@@ -61,12 +66,18 @@ case 'FIREFOX':
 	break;
 case 'CHROME':
 	var driver = buildChromeDriver();
+	driver.manage().window().setSize(1366, 768);
+	break;
+case 'CHROME_M':
+	var driver = buildChromeMDriver();
+	driver.manage().window().setSize(466, 768);
 	break;
 case 'BROWSERSTACK_PC1':
 	var driver = buildBsDriver_PC1();
 	break;
 case 'BROWSERSTACK_M1':
 	var driver = buildBsDriver_M1();
+	driver.manage().window().setSize(466, 768);
 	break;
 default:
 	var driver = buildChromeDriver();

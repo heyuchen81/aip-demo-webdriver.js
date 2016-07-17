@@ -6,14 +6,18 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 
-		tag_chrome : '--tags @debug_m1', // '--tags @bs_m1', // '--tags @chrome_live',   // '--tags @debug_chrome', 
+		tag_chrome : '--tags @debug_pc', // '--tags @chrome_live', // '--tags @debug_m_test', // '--tags @debug_m1', // '--tags @bs_m1', // '--tags @debug_chrome', 
+		tag_chrome_m : '--tags @debug_m',
 		tag_firefox : '--tags @common,@firefox',
-		tag_bs_pc1 : '--tags @bs_pc1', // '--tags @debug_pc1',  // '--tags @debug1', 
-		tag_bs_m1 : '--tags @bs_m1', // '--tags @debug_m1', 
+		tag_bs_pc1 : '--tags @debug_pc', // '--tags @bs_pc1', // '--tags @debug_pc1',  
+		tag_bs_m1 : '--tags @debug_m', // '--tags @bs_m1',  
 	
 		env : {
 			chrome : {
 				PLATFORM : 'CHROME'
+			},
+			chrome_m : {
+				PLATFORM : 'CHROME_M'
 			},
 			firefox : {
 				PLATFORM : 'FIREFOX'
@@ -39,6 +43,9 @@ module.exports = function(grunt) {
 			run_chrome : {
 				command : 'node ' + path.join('node_modules', 'cucumber', 'bin', 'cucumber.js -f pretty <%= tag_chrome %>')
 			},
+			run_chrome_m : {
+				command : 'node ' + path.join('node_modules', 'cucumber', 'bin', 'cucumber.js -f pretty <%= tag_chrome_m %>')
+			},
 			run_firefox : {
 				command : 'node ' + path.join('node_modules', 'cucumber', 'bin', 'cucumber.js -f pretty <%= tag_firefox %>')
 			},
@@ -61,6 +68,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', [ 'jshint', 'exec:run_help' ]);
 	grunt.registerTask('chrome', [ 'env:chrome', 'jshint', 'exec:run_chrome' ]);
+	grunt.registerTask('chrome_m', [ 'env:chrome_m', 'jshint', 'exec:run_chrome_m' ]);
 	grunt.registerTask('firefox', [ 'env:firefox', 'jshint', 'exec:run_firefox' ]);
 	grunt.registerTask('bs_pc1', [ 'env:bs_pc1', 'jshint', 'exec:run_bs_pc1' ]);
 	grunt.registerTask('bs_m1', [ 'env:bs_m1', 'jshint', 'exec:run_bs_m1' ]);

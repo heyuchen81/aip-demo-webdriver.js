@@ -6,12 +6,12 @@ Feature: Open Access Test
 Background:
   Given user has accessed the Scitation homepage
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
 Scenario: Homepage RSS Feeds
   When user has clicked on the most cited rss icon
   Then the rss feed will be displayed
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
 Scenario: Quick Search Suggestions
   Given user has entered a three letter string into quick search
   When user selects one of the options
@@ -49,25 +49,25 @@ Scenario: Quick Search Descriptions
   When clicks view description for the first article
   Then the description will be displayed
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
 Scenario: Quick Search Refine
   Given user is on search results page after searching for "technology"
   When user refines their search with "computer"
   Then refined search results will be displayed
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
 Scenario: Quick Search Physics Today Tab
   Given user is on search results page after searching for "modern history"
   When user reviews the Physics Today tab
   Then results are displayed for physics today
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
 Scenario: Quick Search Related Databases tab
   Given user is on search results page after searching for "modern history"
   When user reviews the Related Databases tab
   Then results are displayed for related databases
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @bs_m1 @debug_m2
 Scenario: Advanced Search Submit
   Given user is on advanced search page
   When user enters keywords "technology" into the first field
@@ -75,14 +75,14 @@ Scenario: Advanced Search Submit
   When user clicks on the Search button
   Then search results page is returned
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
 Scenario: Advanced Search Modify Search
   Given user is on search results page after searching for "factory automation"
   When user clicks on Modify Search
   Then user is taken to advanced search page
   And search terms "factory automation" are entered into the fields
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
 Scenario: Advanced Search Search Within
   Given user is on advanced search page
   When user enters keywords "computer technology" into the first field
@@ -93,7 +93,7 @@ Scenario: Advanced Search Search Within
   And user clicks on the Search button
   Then search results are displayed only for these topics
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
 Scenario: Conference Proceedings Browse
   When user has clicked on the Publications link
   And user has selected "AIP Conference Proceedings"
@@ -103,7 +103,7 @@ Scenario: Conference Proceedings Browse
   Then the conference paper will be displayed
   And there will be a list of related content on the Related tab
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
 Scenario: Topic Page
   Given user is on topics page
   When user clicks on go to topic link beside topic "Energy"
@@ -123,7 +123,7 @@ Scenario: Topic Page Pagination
   When user clicks the next button at the bottom of the page
   Then the next page of results will be displayed
 
-@common @chrome_live @firefox @bs_pc1 
+@common @chrome_live @firefox @bs_pc1 @debug_pc 
 Scenario: Topic Page Facets
   Given user is on topic page "Mathematical physics"
   When user clicks a topic in the topic facet
@@ -131,7 +131,7 @@ Scenario: Topic Page Facets
   When user clicks the Physics Today tab
   Then results will also be filtered by topic
   
-@common @bs_m1 @debug_m2
+@common @bs_m1 @debug_m
 Scenario: Topic Page Facets (mobile)
   Given user is on topic page "Mathematical physics"
   When user clicks a topic in the topic facet (mobile)
@@ -139,7 +139,7 @@ Scenario: Topic Page Facets (mobile)
   When user clicks the Physics Today tab
   Then results will also be filtered by topic 
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_pc @debug_m
 Scenario: Topic Page Authors Tab
   Given user is on topic page "Mathematical physics"
   When user selects the authors tab
@@ -151,7 +151,7 @@ Scenario: Topic Page More Specific Topic
   When user selects a more specific topic "Number theory"
   Then the new "Number theory" page will display 
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 
 Scenario: Navigate To Author Page
   When user has entered performed a quick search for an author "R. L. Kustom"
   And user selects the author name "R. L. Kustom"
@@ -159,7 +159,7 @@ Scenario: Navigate To Author Page
   Then the "R. L. Kustom" author page is displayed
 
 # Error in Live
-@common @chrome @firefox @debug 
+@common @chrome_test @firefox @debug 
 Scenario: Author Page Facets
   Given user is on "Eugenia Etkina" author page
   When user selects a publisher facet
@@ -168,21 +168,21 @@ Scenario: Author Page Facets
   Then results are no longer filtered by this publisher
 
 # Error in Live
-@common @chrome @firefox @debug
+@common @chrome_live @firefox @bs_m1 @debug @debug_m_test
 Scenario: Author Page Sort
   Given user is on "Eugenia Etkina" author page
   When user selects newest first link
   Then results are sorted by date
 
 # Error in Live
-@common @chrome @firefox 
+@common @chrome_live @firefox @bs_m1 @debug_m_test
 Scenario: Author Page View All Descriptions
   Given user is on "Eugenia Etkina" author page
   When user selects view all descriptions link
   Then all descriptions on the page expand
 
 # Error in Live
-@common @chrome @firefox @debug
+@common @chrome_test @firefox @debug
 Scenario: Author Page Pagination
   Given user is on "Eugenia Etkina" author page
   When user clicks the next button at the bottom of the author page
@@ -205,19 +205,19 @@ Scenario: Unsuccessful Registration
   When user clicks on the registration button
   Then user will be taken to the not authorized page
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
 Scenario: Journal Most Read RSS Feeds
   Given user is on "American Journal of Physics" journal page
   When user clicks on the most read rss icon
   Then the rss feed will open
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
 Scenario: Journal Email alerts
   Given user is on "Biomicrofluidics" journal browse tab
   When user clicks on the subscribe to email alerts link
   Then the content alerts link will be displayed
 
-@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m
+@common @chrome_live @firefox @bs_pc1 @bs_m1 @debug_m2
 Scenario: Journal Article
   Given user is on "Biomicrofluidics" journal browse tab
   When user clicks on an article title
