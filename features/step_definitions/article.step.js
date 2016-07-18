@@ -25,11 +25,18 @@ module.exports = function() {
 		callback();
 	});
 	
-	this.Then(/^the article page will be displayed$/, function(callback) {		
+	this.Then(/^the article page will be displayed$/, function(callback) {	
+		articlePage.waitForAbstractTab(this);
 		articlePage.abstractTab(this).isDisplayed().then(function(displayed) {
 			expect(displayed).to.equal(true);
 		});
 		callback();
 	});
+	
+	this.When(/^user has clicked on the buy button$/, function (callback) {
+		articlePage.waitForBuyButton(this);
+        articlePage.buyButton(this).click();
+        callback();
+   });	
 	
 };

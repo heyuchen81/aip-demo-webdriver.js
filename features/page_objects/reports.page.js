@@ -75,9 +75,12 @@ module.exports = {
 	    my.driver.get(homePage.baseUrl() + 'counterstats/requestform');
 	},
 	
-	loadEmailBox : function(my) {
-		var expireMessage = 'Email Box was still not present when it should have appeared.'
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.id('orderuser')), homePage.waitForTimeout() * 1000, expireMessage);			
+	waitForEmailBox : function(my) {
+		return my.waitForId('orderuser', 'Email Box');
+	},
+	
+	waitForContent : function(my) {
+		return my.waitForId('content', 'Content');
 	},
 
 	

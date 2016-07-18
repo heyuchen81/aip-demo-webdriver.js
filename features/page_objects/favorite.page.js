@@ -25,6 +25,10 @@ module.exports = {
 
 	load : function(my) {
 		my.driver.get(homePage.baseUrl() + 'markedlist/view');
+	}, 
+	
+	waitForFavoriteItems : function(my) {
+		return my.waitForXpath('//*[@id="managedMarkedListCont"]/div[@class="resultItem"]', 'Favorite Items');
 	}
 	
 };

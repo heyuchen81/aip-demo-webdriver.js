@@ -63,9 +63,8 @@ module.exports = {
 	 *    Actions
 	 */
 
-	loadNameBox: function(my) {
-		var expireMessage = 'Name Box was still not present when it should have appeared.'
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.id('user_name')), homePage.waitForTimeout() * 1000, expireMessage);			
+	waitForNameBox : function(my) {
+		return my.waitForId('user_name', 'Name Box');
 	}
 	
 };

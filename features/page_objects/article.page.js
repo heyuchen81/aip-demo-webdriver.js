@@ -7,10 +7,7 @@ module.exports = {
 	/* 
 	 *    Web Elements
 	 */
-	buyButton : function(my) {
-		return my.driver.findElement({ xpath : '//*[@id="content"]/div[5]/div/div/div[3]/div/div[2]/div/form/button/span' }); 		
-	},		
-	
+
 	breadCrumb : function(my) {
 		return my.driver.findElement({ id : 'breadcrumb' }); 		
 	},
@@ -19,7 +16,16 @@ module.exports = {
 		return my.driver.findElement({ xpath : '//*[@id="abstract"]/a/span' }); 		
 	},
 	
-
+	// REAL-TIME EXPERIMENTS
+	buyButton : function(my) {
+		return my.driver.findElement({ xpath : '//*[@id="content"]/div[5]/div/div/div[3]/div/div[2]/div/form/button/span' }); 		
+	},
+	
+	shoppingCartButton : function(my) {
+		return my.driver.findElement({ xpath : '//*[@id="content"]/div[5]/div/div/div[3]/div/div[1]/a' });
+	},
+	
+	
     // **********************************************************************
 
 	/*
@@ -27,10 +33,27 @@ module.exports = {
 	 */
 
 	loadCertainArticle : function(my) {
-	    my.driver.get(homePage.baseUrl() + 'content/lia/journal/jla/28/1/10.2351/1.4931930');
+	    my.driver.get(homePage.baseUrl() + 'content/avs/journal/bip/10/4/10.1116/1.4933243');
 	},
+	
+	waitBreadCrumb : function(my) {
+		return my.waitForId('breadcrumb', 'Bread Crumb');
+	},
+	
+	waitForAbstractTab : function(my) {
+		return my.waitForXpath('//*[@id="abstract"]/a/span', 'Abstract Tab');
+	},
+	
+	waitForBuyButton : function(my) {
+		return my.waitForXpath('//*[@id="content"]/div[5]/div/div/div[3]/div/div[2]/div/form/button/span', 'Buy Button');
+	},
+	
+	waitForShoppingCartButton : function(my) {
+		return my.waitForXpath('//*[@id="content"]/div[5]/div/div/div[3]/div/div[1]/a', 'Shopping Cart Button');
+	},	
 	
 	checkAddToFavorites : function(my) {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//*[@id="loginWrapper"]/ul/li[@class="item-favourites"]/div/a'));	
 	}
+	
 };

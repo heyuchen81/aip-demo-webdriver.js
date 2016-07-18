@@ -12,19 +12,24 @@ module.exports = function() {
 	this.Given(/^user is on "([^"]*)" author page$/, function(name, callback) {
 		var myworld = this;	
 		homePage.mobileSearchTreat(this);
+		homePage.waitForQuickSearchBox(this);
 		homePage.quickSearchBox(this).sendKeys(name);
-		this.driver.sleep(500);
 		homePage.quickSearchBox(this).submit();		
+		this.driver.sleep(5000);
 		homePage.pageTitle(this).then(function(title) {
 			expect(title).to.equal('Search Results');
 		}).then(function() {
+			searchResultPage.waitForExplanationText(myworld);
 			return searchResultPage.explanationText(myworld).getText();
 		}).then(function(txt) {
 			expect(txt).to.contain('(All Fields (excluding fulltext) contains ‘' + name + '’)');
 		}).then(function() {
+			myworld.driver.sleep(5000);
 			searchResultPage.authorLink(myworld, 1, name).click();
 		}).then(function() {
+			searchResultPage.waitForCitationAuthorLink(myworld);
 			searchResultPage.citationAuthorLink(myworld).click();
+			authorPage.waitForNameHeader(myworld);
 			return authorPage.nameHeader(myworld).getText();
 		}).then(function(txt) {
 			expect(txt).to.equal(name);
@@ -35,7 +40,7 @@ module.exports = function() {
 	this.When(/^user selects a publisher facet$/, function(callback) {
 		var shared = {};
 		var myworld = this;
-		this.driver.sleep(8000);
+		authorPage.waitForFacetItem(myworld, 'publisher', 1);
 		authorPage.facetItems(this, 'publisher').then(function(elems) {
 			expect(elems.length).to.above(1);		
 		}).then(function() {
@@ -45,12 +50,12 @@ module.exports = function() {
 	});	
 
 	this.When(/^user selects any publisher link$/, function(callback) {
+		authorPage.waitForFacetBackLink(this, 'publisher');
 		authorPage.facetBackLink(this, 'publisher').click();
 		callback();
 	});
 		
 	this.When(/^user selects newest first link$/, function(callback) {
-		authorPage.loadNewestFirstLink(this);
 		authorPage.newestFirstLink(this).getAttribute('class').then(function(txt) {
 			expect(txt).to.equal('inactiveLink');
 			if (txt.indexOf('inactiveLink') === -1) {
@@ -62,18 +67,17 @@ module.exports = function() {
 	});
 			
 	this.When(/^user selects view all descriptions link$/, function(callback) {
-		authorPage.loadNewestFirstLink(this);
+		authorPage.waitForToggleAllDescriptions(this);
 		authorPage.toggleAllDescriptions(this).click();
 		this.driver.sleep(2000);
 		callback();
 	});
 	
 	this.When(/^user clicks the next button at the bottom of the author page$/, function(callback) {
-		authorPage.loadCurrentPageSpan(this);
+		authorPage.waitForCurrentPageSpan(this);
 		authorPage.checkCurrentPageSpan(this).then(function(present) {
 			expect(present).to.equal(true);
-		});
-		
+		});		
 		authorPage.currentPageSpan(this).getText().then(function(txt) {
 			expect(txt).to.equal('1');
 		});
@@ -83,6 +87,7 @@ module.exports = function() {
 	
 	this.Then(/^the "([^"]*)" author page is displayed$/, function(name, callback) {
 		var myworld = this;
+		authorPage.waitForNameHeader(this);
 		authorPage.nameHeader(this).getText().then(function(txt) {
 			expect(txt).to.equal(name);
 			myworld.driver.sleep(5000);
@@ -91,7 +96,7 @@ module.exports = function() {
 	});
 	
 	this.Then(/^results are filtered by publisher$/, function(callback) {
-		this.driver.sleep(1000);
+		this.driver.sleep(2000);
 		authorPage.loadFacetBackLink(this, 'publisher');
 		authorPage.facetItems(this, 'publisher').then(function(elems) {
 			expect(elems.length).to.equal(1);
@@ -115,6 +120,7 @@ module.exports = function() {
 		authorPage.authorArticleElements(this).then(function(elems) {
 			expect(elems.length).to.above(5);
 		});
+		authorPage.waitForAuthorArticleElementTimeSpan(this, 1);
 		authorPage.authorArticleElementTimeSpan(this, 1).getText().then(function(spantxt) {
 			shared.timearr = new Array(6);
 			shared.timearr[0] = authorPage.getAuthorArticleElementTime(spantxt);	
@@ -153,6 +159,7 @@ module.exports = function() {
 		
 	this.Then(/^all descriptions on the page expand$/, function(callback) {
 		this.driver.sleep(1000);
+		authorPage.waitForAuthorArticleElementDescription(this, 1);
 		authorPage.authorArticleElementDescription(this, 1).getAttribute('style').then(function(txt) {
 			expect(txt).to.equal('display: block;');
 		});
@@ -161,6 +168,7 @@ module.exports = function() {
 		
 	this.Then(/^the next page of results will be displayed in author page$/, function(callback) {
 		this.driver.sleep(2000);
+		authorPage.waitForCurrentPageSpan(this);
 		authorPage.currentPageSpan(this).getText().then(function(txt) {
 			expect(txt).to.equal('2');
 		});

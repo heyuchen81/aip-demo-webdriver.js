@@ -25,8 +25,7 @@ module.exports = {
 	},
 	
 	explanationText : function(my) {
-		return my.driver.findElement({ xpath : '//*[@id="content"]/div[5]/div' }); 
-												
+		return my.driver.findElement({ xpath : '//*[@id="content"]/div[5]/div' }); 												
 	}, 
 
 	topicSearchBack : function(my) {
@@ -92,19 +91,75 @@ module.exports = {
 		var ext = 'content/topic/' + topic.trim().replace(' ', '-').toLowerCase();
 	    my.driver.get(homePage.baseUrl() + ext);
 	},
-	
-	loadExplanationText : function(my) {                                        
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="content"]/div[@class="searchExplanation"]/div')), homePage.waitForTimeout() * 1000, 'The Explanation Text was still not present when it should have appeared.');		
+		
+	waitForTopicGoTo : function(my, topic) {
+		return my.waitForXpath('//*[@id="topicsTopLevel"]/li/span/span[@class="link2topic"]/a[@title="Go to ' + topic + ' topic page"]', 'Topic Go To');
+	},
+		
+	waitForTopicTitle : function(my) {
+		return my.waitForXpath('//*[@id="content"]/div[2]/h1', 'Topic Title');
 	},
 	
+	waitForSearchRefineBox : function(my) {
+		return my.waitForId('searchRefineBox', 'Search Refine Box');
+	},
+	
+	waitForExplanationText : function(my) {
+		return my.waitForXpath('//*[@id="content"]/div[5]/div', 'Explanation Text');
+	},
+		
+	waitForTopicSearchBack : function(my) {
+		return my.waitForXpath('//*[@id="content"]/div[6]/div[3]/a', 'Topic Search Back');
+	},
+	
+	waitForNextButton : function(my) {
+		return my.waitForXpath('//*[@id="searchResultsContainer"]/div[3]/div[21]/div/div[2]/a[6]', 'Next Button');
+	},
+		
+	waitForCurrentPageSpan : function(my) {
+		return my.waitForXpath('//*[@id="searchResultsContainer"]/div[3]/div[21]/div/div[2]/span', 'Current Page Span');
+	},
+	
+	waitForFacetItem : function(my, category, order) {
+		return my.waitForXpath('//div[@class=\'facets\']/h3[contains(text(),\'' + category + ':\')]/following-sibling::ul[1]/li[' + order + ']/a', 'Facet Item');
+	},
+	
+	waitForPhysicsTodayTab : function(my) {
+		return my.waitForId('physicstodaycontent', 'Physics Today Tab');
+	},
+	
+	waitForAuthorsTab : function(my) {
+		return my.waitForId('authorsforconceptcontent', 'Authors Tab');
+	},	
+		
+	waitForMoreSpecificItem : function(my, text) {
+		return my.waitForXpath('//*[@id="narrowconcept"]/li[@class="visibleCount"]/a[@title=\'Link to ' + text + '\']', 'More Specific Item');
+	},	
+	
+	waitForTopicHeader : function(my) {
+		return my.waitForXpath('//*[@id="content"]/div[2]/h1', 'Topic Header');
+	},		
+	
+	waitForTopicBackLink : function(my) {
+		return my.waitForXpath('//*[@id="facetFilter"]/div[2]/div[@class="facets"]/p[1]/a', 'Mobile Back Link');
+	},
+	
+	waitForMobileSpecificTopics : function(my) {
+		return my.waitForXpath('//*[@id="content"]/div[@class="conceptsheader"]/div[contains(normalize-space(@class), \'conceptspartcontainer\')]/div[contains(normalize-space(@class), \'morespecificconcepts\')]/h3', 'Mobile Specific Topics');
+	},
+	
+	waitForMobileFilterButton : function(my) {
+		return my.waitForXpath('//*[@id="searchResultsContainer"]/div/div[@class="resultsnav"]/div[@class="mobileFilterContainer"]/div/div/button', 'Mobile Filter Button');
+	},
+		
+	waitForMobileBackLink : function(my) {
+		return my.waitForXpath('//*[@id="facetFilter"]/div[1]/button/span[2]', 'Mobile Back Link');
+	},
+
 	loadExplanationText_newText : function(my, text) {
 		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//*[@id="content"]/div[@class="searchExplanation"]/div')), text), homePage.waitForTimeout() * 1000, 'The Explanation Text (with new text ' + text + ') was still not present when it should have appeared.');	
 	},
-	
-	loadCurrentPageSpan : function(my) {                                        
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[3]/div[21]/div/div[2]/span')), homePage.waitForTimeout() * 1000, 'The Current Page Span was still not present when it should have appeared.');		
-	},
-	
+
 	checkCurrentPageSpan : function(my) {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[3]/div[21]/div/div[2]/span')); 
 	},  
@@ -127,11 +182,7 @@ module.exports = {
 		var listorder = order + 1;
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//div[@class=\'facets\']/h3[contains(text(),\'' + category + ':\')]/following-sibling::ul[1]/li[' + order + ']/a'));	
 	},
-	
-	loadExplanationText : function(my) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), homePage.waitForTimeout() * 1000, 'The Explanation Text was still not present when it should have appeared.');		
-	},
-	
+
 	checkTopicBackLink : function(my) {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//*[@id="facetFilter"]/div[2]/div[@class="facets"]/p[1]/a'));	
 	},

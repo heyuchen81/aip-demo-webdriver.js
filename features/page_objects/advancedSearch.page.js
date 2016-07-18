@@ -50,9 +50,33 @@ module.exports = {
 	load : function(my) {
 		my.driver.get(homePage.baseUrl() + 'search/advancedsearch');
 	},
+		
+	waitForInputBox1 : function(my) {
+		return my.waitForId('value1', 'Input Box 1');
+	},
 	
-	loadSearchWithinTopicsItemClickable : function(my, order) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@id=\'sWDlgHook\']/div/ul[@class=\'sWDlgList\']/li[' + order + '][@class=\'\']/input')), homePage.waitForTimeout() * 1000, 'The clickable Topics item was still not present when it should have appeared.');			
+	waitForInputBox2 : function(my) {
+		return my.waitForId('value2', 'Input Box 2');
+	},
+	
+	waitForSearchButton : function(my) {
+		return my.waitForXpath('//*[@id="advanced-search-form"]/div/a/span[text()=\'Search\']', 'Search Button');
+	},
+	
+	waitForSearchWithinTopicsButton : function(my) {
+		return my.waitForXpath('//div[contains(normalize-space(@class), \'searchWithinContainerInner\')]/div[contains(normalize-space(@class), \'sw_topics\')]', 'Search Within Topics Button');
+	},
+	
+	waitForSearchWithinTopicsItemByOrder : function(my, order) {
+		return my.waitForXpath('//div[@id=\'sWDlgHook\']/div/ul[@class=\'sWDlgList\']/li[' + order + ']/input', 'Search Within Topics Item By Order');
+	},
+	
+	waitForSearchWithinTopicsItemByText : function(my, txt) {
+		return my.waitForXpath('//div[@id=\'sWDlgHook\']/div/ul/li[contains(text(),\'' + txt + '\')]/input', 'Search Within Topics Item By Text');
+	},
+	
+	waitForSubmitCloseButton : function(my) {
+		return my.waitForXpath('//div[@id=\'sWDlgHook\']/div/div/span[@class=\'sWDlgSubmit\']/button', 'Submit Close Button');
 	}
 	
 };

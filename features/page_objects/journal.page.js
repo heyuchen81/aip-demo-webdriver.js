@@ -16,10 +16,6 @@ module.exports = {
 		return my.driver.findElement({ xpath : '//*[@id="journaloverviewtabid"]/div[3]/div[2]/div[1]/h3/span/a/span' }); 
 	},
 	
-	mostReadRssIcon : function(my) {
-		return my.driver.findElement({ xpath : '//*[@id="journaloverviewtabid"]/div[3]/div[2]/div[1]/h3/span/a/span' }); 
-	},
-	
 	browseLink : function(my) {
 		return my.driver.findElement({ xpath : '//*[@id="issuestab"]/a/span' }); 
 	},
@@ -36,7 +32,7 @@ module.exports = {
 		return my.driver.findElement({ xpath : '//div[@class="articleInToc"]/ul/li[' + order + ']/div/div/h5/span/a' });		
 	},
 	
-	mobileEditButton : function(my, order) {
+	mobileEditButton : function(my) {
 		return my.driver.findElement({ xpath : '//*[@id="content"]/div[4]/span[contains(normalize-space(@class), \'ham-icon\')]/span[@class="aip-icon-menu3"]' });		
 	},
 	
@@ -46,6 +42,34 @@ module.exports = {
 	/*
 	 *    Actions
 	 */	
+	
+	waitForMostReadRssIcon : function(my) {
+		return my.waitForXpath('//*[@id="journaloverviewtabid"]/div[3]/div[2]/div[1]/h3/span/a/span', 'Most Read Rss Icon');
+	},
+
+	waitForBrowseLink : function(my) {
+		return my.waitForXpath('//*[@id="issuestab"]/a/span', 'Browse Link');
+	},
+
+	waitForSubscribeToEmailLink : function(my) {
+		return my.waitForXpath('//*[@id="loginWrapper"]/ul[2]/li[3]/a/span', 'Subscribe To Email Link');
+	},
+
+	waitForSignInAlertClose : function(my) {
+		return my.waitForXpath('//div[@class=\'signInOrRegisterWrapper\']/div[contains(normalize-space(@style), \'display: block\')]/div[1]/a', 'Sign In Alert Close');
+	},
+
+	waitForContributedArticleTitle : function(my, order) {
+		return my.waitForXpath('//div[@class="articleInToc"]/ul/li[' + order + ']/div/div/h5/span/a', 'Contributed Article Title');
+	},
+
+	waitForMobileEditButton : function(my) {
+		return my.waitForXpath('//*[@id="content"]/div[4]/span[contains(normalize-space(@class), \'ham-icon\')]/span[@class="aip-icon-menu3"]', 'Mobile Edit Button');
+	},
+
+	waitForElementByXpath : function(my) {
+		return my.waitForXpath('elementXpath', 'Element By Xpath');
+	},
 	
 	checkSignInAlert : function(my) {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//div[@class=\'signInOrRegisterWrapper\']/div[contains(normalize-space(@style), \'display: block\')]'));	

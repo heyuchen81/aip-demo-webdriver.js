@@ -92,10 +92,9 @@ module.exports = {
 	
 	mobileFacetItem : function(my, order) {
 		return my.driver.findElement({ xpath : '//*[@id="searchResultsContainer"]/div/div/div[@class="search-facet-mobile-container"]/div[@class="facets"]/ul[contains(normalize-space(@class), \'hiddenFacetList\')]/li[' + order +']' });
-		                                        //*[@id="searchResultsContainer"]/div[2]/div/div/div/ul[1]/li[3]/a
 	},
 	
-	mobileFacetCancel : function(my, order) {
+	mobileFacetCancel : function(my) {
 		return my.driver.findElement({ xpath : '//*[@id="searchResultsContainer"]/div[contains(normalize-space(@class), \'resultsnav\')]/a[@class="anysearchfacetlink"]/span[contains(normalize-space(@class), \'featured-remove-filter\')]' });
 	},
 	
@@ -114,11 +113,91 @@ module.exports = {
 	 *    Actions
 	 */
 
-	checkAutocompleteItem : function(my, order) {
-		var listorder = order + 1;
-		return my.driver.isElementPresent(my.webdriver.By.id('ui-id-' + listorder));	
+	waitForQuickSearchBox : function(my) {
+		return my.waitForId('quickSearchBox', 'Quick Search Box');
 	},
 	
+	waitForAutocompleteLi : function(my, order) {
+		var listorder = order + 1;
+		return my.waitForId('ui-id-' + listorder, 'Autocomplete Li');
+	},
+	
+	waitForFacetItem : function(my, category, order) {
+		return my.waitForXpath('//div[@class=\'facets\']/h3[contains(text(),\'' + category + ':\')]/following-sibling::ul[1]/li[' + order + ']/a', 'Facet Item');
+	},
+
+	waitForFacetCancel : function(my, category) {
+		return my.waitForXpath('//div[@class=\'facets\']/h3[contains(text(),\'' + category + ':\')]/following-sibling::p[1]/a', 'Facet Cancel');
+	},
+
+	waitForExplanationText : function(my) {
+		return my.waitForXpath('//div[@class=\'explanationText \']', 'Explanation Text');
+	},
+
+	waitForSeeMoreButton : function(my) {
+		return my.waitForXpath('//button[@class=\'btn btn-primary search-see-more\']', 'See More Button');
+	},
+
+	waitForSortDesButton : function(my) {
+		return my.waitForId('sortNewest', 'Sort Des Button');
+	},
+	
+	waitForSearchResultElementTimeSpan : function(my, order) {
+		return my.waitForXpath('//div[@id=\'listItems\']/div/div[@class=\'resultItemContainer \'][' + order + ']/div/div/span[@class=\'source\']/span[@class=\'sourcePublicationDate\']', 'Search Result Element Time Span');
+	},
+
+	waitForSearchResultElementViewDescription : function(my, order) {
+		return my.waitForXpath('//div[@id=\'listItems\']/div/div[@class=\'resultItemContainer \'][' + order + ']/div/div/div/span[@class=\'plus\']/span[@class=\'underline\' and text()=\'View Description\']', 'Search Result Element View Description');
+	},
+
+	waitForSearchResultElementDescription : function(my, order) {
+		return my.waitForXpath('//div[@id=\'listItems\']/div/div[@class=\'resultItemContainer \'][' + order + ']/div/div/div[@class=\'description\']/div[@class=\'descriptioncontainer\']/p', 'Search Result Element Description');
+	},
+	
+	waitForSearchResultRefineInput : function(my) {
+		return my.waitForId('searchRefineBox', 'Search Result Refine Input');
+	},
+	
+	waitForPhysicsTodayTab : function(my) {
+		return my.waitForId('physicstoday', 'Physics Today Tab');
+	},
+	
+	waitForRelatedDatabasesTab : function(my) {
+		return my.waitForId('relatedDatabases', 'Related Databases Tab');
+	},
+	
+	waitForCitationAuthorLink : function(my) {
+		return my.waitForXpath('//*[@id="authorpopup"]/div/div[1]/a', 'Citation Author Link');
+	},
+
+	waitForModifySearchButton : function(my) {
+		return my.waitForXpath('//div[@class=\'resultsbuttonsContainer\']/div/a[@title=\'Modify this search\']', 'Modify Search Button');
+	},
+
+	waitForMobileFilterButton : function(my) {
+		return my.waitForXpath('//*[@id="searchResultsContainer"]/div[contains(normalize-space(@class), \'resultsnav\')]/div[@class="mobileFilterContainer"]/button', 'Mobile Filter Button');
+	},
+
+	waitForMobileFacetCategory : function(my, category) {
+		return my.waitForXpath('//*[@id="searchResultsContainer"]/div/div/div[@class="search-facet-mobile-container"]/div[@class="facets"]/h3[contains(text(),\'' + category +':\')]', 'Mobile Facet Category');
+	},
+
+	waitForMobileFacetItem : function(my, order) {
+		return my.waitForXpath('//*[@id="searchResultsContainer"]/div/div/div[@class="search-facet-mobile-container"]/div[@class="facets"]/ul[contains(normalize-space(@class), \'hiddenFacetList\')]/li[' + order +']', 'Mobile Facet Item');
+	},
+	
+	waitForMobileFacetCancel : function(my) {
+		return my.waitForXpath('//*[@id="searchResultsContainer"]/div[contains(normalize-space(@class), \'resultsnav\')]/a[@class="anysearchfacetlink"]/span[contains(normalize-space(@class), \'featured-remove-filter\')]', 'Mobile Facet Cancel');
+	},
+
+	waitForMobileSortDdl : function(my) {
+		return my.waitForXpath('//*[@id="sortForm"]/div/span[contains(normalize-space(@class), \'mobileLabel\')]', 'Mobile Sort Ddl');
+	},
+
+	waitForMobileEditButton : function(my) {
+		return my.waitForXpath('//*[@id="content"]/span[contains(text(),\'Edit or Save\')]', 'Mobile Edit Button');
+	},
+
 	checkFacetItem : function(my, category, order) {
 		var listorder = order + 1;
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//div[@class=\'facets\']/h3[contains(text(),\'' + category + ':\')]/following-sibling::ul[1]/li[' + order + ']/a'));	
@@ -136,14 +215,6 @@ module.exports = {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//div[@class=\'explanationText \']'));	
 	},
 
-	loadExplanationText : function(my) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), homePage.waitForTimeout() * 1000, 'The Explanation Text was still not present when it should have appeared.');		
-	},
-	
-	loadMobileFacetCategory : function(my, category) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div/div/div[@class="search-facet-mobile-container"]/div[@class="facets"]/h3[contains(text(),\'' + category +':\')]')), homePage.waitForTimeout() * 1000, 'The Explanation Text was still not present when it should have appeared.');		
-	},
-	
 	loadExplanationText_newText : function(my, text) {
 		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), text), homePage.waitForTimeout() * 1000, 'The Explanation Text (with new text ' + text + ') was still not present when it should have appeared.');	
 	},
@@ -177,40 +248,7 @@ module.exports = {
 	        });
 	    }, homePage.waitForTimeout() * 1000, expireMessage);
 	},
-	
-	showMobileFilterButton : function(my) {
-		var currentPage = this;
-		var expireMessage = 'Mobile Filter Button was still not displayed when it should have appeared.'
-		my.driver.wait(function () {
-	        return currentPage.mobileFilterButton(my).isDisplayed().then(function (displayed) {
-	            if (!displayed) return false;
-	            return currentPage.mobileFilterButton(my).isEnabled();
-	        });
-	    }, homePage.waitForTimeout() * 1000, expireMessage);
-	},
-	
-	showMobileFacetCategory : function(my, category) {
-		var currentPage = this;
-		var expireMessage = 'Mobile Facet Category \'' + category + '\' was still not displayed when it should have appeared.'
-		my.driver.wait(function () {
-	        return currentPage.mobileFacetCategory(my, category).isDisplayed().then(function (displayed) {
-	            if (!displayed) return false;
-	            return currentPage.mobileFacetCategory(my, category).isEnabled();
-	        });
-	    }, homePage.waitForTimeout() * 1000, expireMessage);
-	},
-	
-	showMobileFacetItem : function(my, order) {
-		var currentPage = this;
-		var expireMessage = 'Mobile Facet Item was still not displayed when it should have appeared.'
-		my.driver.wait(function () {
-	        return currentPage.mobileFacetItem(my, order).isDisplayed().then(function (displayed) {
-	            if (!displayed) return false;
-	            return currentPage.mobileFacetItem(my, order).isEnabled();
-	        });
-	    }, homePage.waitForTimeout() * 1000, expireMessage);
-	},
-	
+
 	
     // **********************************************************************
 	

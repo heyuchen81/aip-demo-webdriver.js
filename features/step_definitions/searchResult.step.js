@@ -11,13 +11,14 @@ module.exports = function() {
 	this.Given(/^user is on search results page after searching for "([^"]*)"$/, function(keywords, callback) {	
 		var myworld = this;	
 		homePage.mobileSearchTreat(this);
+		homePage.waitForQuickSearchBox(this);
 		homePage.quickSearchBox(this).sendKeys(keywords);
-		this.driver.sleep(500);
 		homePage.quickSearchBox(this).submit();		
-		this.driver.sleep(10000);
+		this.driver.sleep(8000);
 		homePage.pageTitle(this).then(function(title) {
 			expect(title).to.equal('Search Results');
 		}).then(function() {
+			searchResultPage.waitForExplanationText(myworld);
 			return searchResultPage.explanationText(myworld).getText();
 		}).then(function(txt) {
 			expect(txt).to.contain('(All Fields (excluding fulltext) contains ‘' + keywords + '’)');
@@ -28,9 +29,11 @@ module.exports = function() {
 	this.When(/^user filters results by topic$/, function(callback) {			
 		var myworld = this;		
 		var shared = {};
+		searchResultPage.waitForExplanationText(this);
 		searchResultPage.explanationText(this).getText().then(function(txt) {
 			shared.sum = searchResultPage.getExplanationTextTotalNumber(txt);			
 		}).then(function() {
+			searchResultPage.waitForFacetItem(myworld, 'topic', 3);
 			return searchResultPage.checkFacetItem(myworld, 'topic', 3);
 		}).then(function(present) {
 			expect(present).to.equal(true);
@@ -43,6 +46,7 @@ module.exports = function() {
 			searchResultPage.facetItem(myworld, 'topic', 3).click();
 			myworld.driver.sleep(1000);
 		}).then(function() {
+			searchResultPage.waitForExplanationText(myworld);
 			return searchResultPage.explanationText(myworld).getText();
 		}).then(function(txt) {
 			expect(searchResultPage.getExplanationTextTotalNumber(txt)).to.equal(shared.part);
@@ -51,11 +55,11 @@ module.exports = function() {
 	});
 	
 	this.When(/^user filters results by topic \(mobile\)$/, function(callback) {
-		searchResultPage.showMobileFilterButton(this);
-		searchResultPage.mobileFilterButton(this).click();
-		searchResultPage.showMobileFacetCategory(this, 'topic');		
+		searchResultPage.waitForMobileFilterButton(this);
+		searchResultPage.mobileFilterButton(this).click();		
+		searchResultPage.waitForMobileFacetCategory(this, 'topic');
 		searchResultPage.mobileFacetCategory(this, 'topic').click();
-		searchResultPage.showMobileFacetItem(this, 3);
+		searchResultPage.waitForMobileFacetItem(this, 3);
 		searchResultPage.mobileFacetItem(this, 3).click();
 		callback();
 	});
@@ -63,12 +67,13 @@ module.exports = function() {
 	this.When(/^user has entered performed a quick search for an author "([^"]*)"$/, function(authorname, callback) {	
 		var myworld = this;	
 		homePage.mobileSearchTreat(this);
+		homePage.waitForQuickSearchBox(this);
 		homePage.quickSearchBox(this).sendKeys(authorname);
-		this.driver.sleep(500);
 		homePage.quickSearchBox(this).submit();		
 		homePage.pageTitle(this).then(function(title) {
 			expect(title).to.equal('Search Results');
 		}).then(function() {
+			searchResultPage.waitForExplanationText(myworld);
 			return searchResultPage.explanationText(myworld).getText();
 		}).then(function(txt) {
 			expect(txt).to.contain('(All Fields (excluding fulltext) contains ‘' + authorname + '’)');
@@ -79,19 +84,23 @@ module.exports = function() {
 	this.When(/^user removes the filter$/, function(callback) {
 		var myworld = this;		
 		var shared = {};
+		searchResultPage.waitForExplanationText(this);
 		searchResultPage.explanationText(this).getText().then(function(txt) {
 			shared.part = searchResultPage.getExplanationTextTotalNumber(txt);			
 		}).then(function() {			
+			searchResultPage.waitForFacetCancel(myworld, 'topic');
 			return searchResultPage.checkFacetCancel(myworld, 'topic');	
 		}).then(function(present) {
 			expect(present).to.equal(true);
 			searchResultPage.facetCancel(myworld, 'topic').click();
+			searchResultPage.waitForFacetItem(myworld, 'topic', 3);
 			return searchResultPage.checkFacetItem(myworld, 'topic', 3);
 		}).then(function(present) {
 			expect(present).to.equal(true);
 			return searchResultPage.facetItem(myworld, 'topic', 3).getText();
 		}).then(function(txt) {
 			expect(searchResultPage.getFacetItemNumber(txt)).to.equal(shared.part);
+			searchResultPage.waitForExplanationText(myworld);
 			return searchResultPage.explanationText(myworld).getText();
 		}).then(function(txt) {
 			expect(searchResultPage.getExplanationTextTotalNumber(txt)).to.not.equal(shared.part);
@@ -100,6 +109,7 @@ module.exports = function() {
 	});
 	
 	this.When(/^user removes the filter \(mobile\)$/, function(callback) {
+		searchResultPage.waitForMobileFacetCancel(this);
 		searchResultPage.mobileFacetCancel(this).click();
 		callback();
 	});
@@ -107,6 +117,7 @@ module.exports = function() {
 	this.When(/^user clicks the More button at the bottom$/, function(callback) {
 		var myworld = this;		
 		var shared = {};
+		searchResultPage.waitForExplanationText(this);
 		searchResultPage.explanationText(this).getText().then(function(txt) {
 			shared.sum = searchResultPage.getExplanationTextTotalNumber(txt);			
 			expect(txt.startsWith('1 - 20 of ' + shared.sum + ' results,')).to.equal(true);			
@@ -119,6 +130,7 @@ module.exports = function() {
 				expect(elems.length).to.equal(20);
 			}
 		}).then(function() {
+			searchResultPage.waitForSeeMoreButton(myworld);
 			searchResultPage.seeMoreButton(myworld).click();
 		});
 		callback();
@@ -130,6 +142,7 @@ module.exports = function() {
 		searchResultPage.searchResultElements(this).then(function(elems) {
 			expect(elems.length >= 6).to.equal(true);
 		});
+		searchResultPage.waitForSearchResultElementTimeSpan(this, 1);
 		searchResultPage.searchResultElementTimeSpan(this, 1).getText().then(function(spantxt) {
 			shared.timearr = new Array(6);
 			shared.timearr[0] = searchResultPage.getSearchResultElementTime(spantxt);	
@@ -180,6 +193,7 @@ module.exports = function() {
 			return searchResultPage.searchResultElementDescription(myworld, 1).isDisplayed();
 		}).then(function(displayed) {
 			expect(displayed).to.equal(false);
+			searchResultPage.waitForSearchResultElementViewDescription(myworld, 1);
 			searchResultPage.searchResultElementViewDescription(myworld, 1).click();
 		});				
 		callback();
@@ -188,6 +202,7 @@ module.exports = function() {
 	this.When(/^user refines their search with "([^"]*)"$/, function(keywords, callback) {
 		var myworld = this;	
 		var shared = {};
+		searchResultPage.waitForExplanationText(this);
 		searchResultPage.explanationText(this).getText().then(function(txt) {
 			shared.sum = searchResultPage.getExplanationTextTotalNumber(txt);
 			expect(shared.sum).to.be.above(0);
@@ -196,6 +211,7 @@ module.exports = function() {
 			expect(elems.length).to.be.above(0);
 		}).then(function() {
 			searchResultPage.mobileEditTreat(myworld);
+			searchResultPage.waitForSearchResultRefineInput(myworld);
 			searchResultPage.searchResultRefineInput(myworld).sendKeys(keywords);
 			searchResultPage.searchResultRefineInput(myworld).submit();
 			searchResultPage.loadExplanationText_newText(myworld, '(About contains ‘' + keywords + '’)');
@@ -211,13 +227,14 @@ module.exports = function() {
 	this.When(/^user reviews the Physics Today tab$/, function(callback) {
 		var myworld = this;	
 		var shared = {};		
+		searchResultPage.waitForExplanationText(this);
 		searchResultPage.explanationText(this).getText().then(function(txt) {
 			expect(txt).to.not.contain('(Content contains ‘Physics Today’)');
 			shared.sum = searchResultPage.getExplanationTextTotalNumber(txt);
 			expect(shared.sum).to.be.above(0);
 			return searchResultPage.physicsTodayTab(myworld).getAttribute('class');
 		}).then(function(txt) {
-			expect(txt).to.not.equal('active ');
+			expect(txt).to.not.equal('active ');			
 			searchResultPage.physicsTodayTab(myworld).click();	
 			searchResultPage.loadExplanationText_newText(myworld, '(Content contains ‘Physics Today’)');	
 			return searchResultPage.explanationText(myworld).getText();
@@ -237,6 +254,7 @@ module.exports = function() {
 			return searchResultPage.checkFacetItem(myworld, 'topic', 1);
 		}).then(function(present) {
 			expect(present).to.equal(true);
+			searchResultPage.waitForRelatedDatabasesTab(myworld);
 			searchResultPage.relatedDatabasesTab(myworld).click();	
 			searchResultPage.vanishExplanationText(myworld);	
 		});
@@ -245,12 +263,12 @@ module.exports = function() {
 	
 	this.When(/^user selects the author name "([^"]*)"$/, function(name, callback) {
 		var myworld = this;			
-		this.driver.sleep(5000);
 		searchResultPage.authorLink(this, 1, name).click();
 		callback();
 	});
 	
 	this.When(/^user selects the from scitation link in the pop-up$/, function(callback) {		
+		searchResultPage.waitForCitationAuthorLink(this);
 		searchResultPage.citationAuthorLink(this).click();
 		callback();
 	});
@@ -258,8 +276,10 @@ module.exports = function() {
 	this.Then(/^full search results will be displayed$/, function(callback) {
 		var myworld = this;		
 		var shared = {};
+		searchResultPage.waitForExplanationText(this);
 		searchResultPage.explanationText(this).getText().then(function(txt) {
-			shared.sum = searchResultPage.getExplanationTextTotalNumber(txt);		
+			shared.sum = searchResultPage.getExplanationTextTotalNumber(txt);
+			searchResultPage.waitForFacetItem(myworld, 'topic', 3);
 			return searchResultPage.checkFacetItem(myworld, 'topic', 3);
 		}).then(function(present) {
 			expect(present).to.equal(true);
@@ -273,13 +293,16 @@ module.exports = function() {
 	this.Then(/^full search results will be displayed \(mobile\)$/, function(callback) {
 		var myworld = this;		
 		var shared = {};
+		searchResultPage.waitForExplanationText(this);
 		searchResultPage.explanationText(this).getText().then(function(txt) {
 			shared.sum = searchResultPage.getExplanationTextTotalNumber(txt);					
 		}).then(function() {
+			searchResultPage.waitForMobileFilterButton(myworld);
 			searchResultPage.mobileFilterButton(myworld).click();
-			myworld.driver.sleep(2000);
+			searchResultPage.waitForMobileFacetCategory(myworld, 'topic');
 			searchResultPage.mobileFacetCategory(myworld, 'topic').click();
-			myworld.driver.sleep(2000);
+			myworld.driver.sleep(5000);
+			searchResultPage.waitForMobileFacetItem(myworld, 3);
 			return searchResultPage.mobileFacetItem(myworld, 3).getText();
 		}).then(function(txt) {
 			expect(searchResultPage.getFacetItemNumber(txt)).to.not.equal(shared.sum);
@@ -290,6 +313,7 @@ module.exports = function() {
 	this.Then(/^20 more results will be displayed$/, function(callback) {
 		var myworld = this;
 		var shared = {};
+		searchResultPage.waitForExplanationText(this);
 		searchResultPage.explanationText(this).getText().then(function(txt) {		
 			shared.sum = searchResultPage.getExplanationTextTotalNumber(txt);	
 			searchResultPage.loadExplanationText_newText(myworld, '1 - 40 of ' + shared.sum + ' results,');
@@ -315,6 +339,7 @@ module.exports = function() {
 		this.driver.sleep(2000);
 		var myworld = this;
 		var shared = {};
+		searchResultPage.waitForSearchResultElementTimeSpan(this, 1);
 		searchResultPage.searchResultElementTimeSpan(this, 1).getText().then(function(spantxt) {
 			shared.timearr = new Array(6);
 			shared.timearr[0] = searchResultPage.getSearchResultElementTime(spantxt);	
@@ -359,6 +384,7 @@ module.exports = function() {
 		var myworld = this;
 		searchResultPage.searchResultElements(this).then(function(elems) {
 			expect(elems.length >= 1).to.equal(true);
+			searchResultPage.waitForSearchResultElementDescription(myworld, 1);
 			return searchResultPage.searchResultElementDescription(myworld, 1).isDisplayed();
 		}).then(function(displayed) {
 			expect(displayed).to.equal(true);
@@ -369,6 +395,7 @@ module.exports = function() {
 	this.Then(/^refined search results will be displayed$/, function(callback) {
 		var myworld = this;
 		var shared = {};
+		searchResultPage.waitForExplanationText(this);
 		searchResultPage.explanationText(this).getText().then(function(txt) {
 			shared.part = searchResultPage.getExplanationTextTotalNumber(txt);
 			return searchResultPage.searchResultElements(myworld);
@@ -384,6 +411,7 @@ module.exports = function() {
 	
 	this.Then(/^results are displayed for physics today$/, function(callback) {
 		var myworld = this;			
+		searchResultPage.waitForExplanationText(this);
 		searchResultPage.explanationText(this).getText().then(function(txt) {
 			expect(txt).to.contain('(Content contains ‘Physics Today’)');
 			return searchResultPage.physicsTodayTab(myworld).getAttribute('class');

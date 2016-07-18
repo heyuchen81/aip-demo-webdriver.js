@@ -14,7 +14,7 @@ module.exports = function() {
 	});
 	
 	this.When(/^user completes mandatory fields$/, function(callback) {
-		reportsPage.loadEmailBox(this);
+		reportsPage.waitForEmailBox(this);
 		reportsPage.emailBox(this).clear();
 		reportsPage.emailBox(this).sendKeys('xin.he@ingenta.com');
 		reportsPage.startMonthDdl(this).click();
@@ -29,7 +29,7 @@ module.exports = function() {
 	});
 	
 	this.When(/^user submits the form$/, function(callback) {
-		this.driver.sleep(1000);
+		reportsPage.waitForSubmitButton(this);
 		reportsPage.submitButton(this).click();
 		callback();
 	});
@@ -38,6 +38,7 @@ module.exports = function() {
 		var myworld = this;
 		this.driver.getCurrentUrl().then(function(url) {
 			expect(url).to.equal(homePage.baseUrl() + 'counterstats/emailstatistics');
+			reportsPage.waitForContent(myworld);
 			return reportsPage.content(myworld).getText();
 		}).then(function(txt) {
 			expect(txt).to.contain('The report you requested has been emailed to');

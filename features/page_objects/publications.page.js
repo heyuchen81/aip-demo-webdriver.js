@@ -25,6 +25,10 @@ module.exports = {
 
 	load : function(my) {
 	    my.driver.get(homePage.baseUrl() + 'content/publications');
+	},
+	
+	waitForPublicationItem : function(my, txt) {
+		return my.waitForXpath('//div[@id=\'listItems\']/ul/li/ul/li/div[@class=\'articleMetadata \']/div/h5/span/a[text()=\'' + txt + '\']', 'Publication Item');
 	}
 	
 };

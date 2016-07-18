@@ -68,25 +68,56 @@ module.exports = {
 	 *    Actions
 	 */
 
-	checkAutocompleteItem : function(my, order) {
-		var listorder = order + 1;
-		return my.driver.isElementPresent(my.webdriver.By.id('ui-id-' + listorder));	
+	waitForNameHeader : function(my) {
+		return my.waitForXpath('//*[@id="content"]/div[2]/h1', 'Name Header');
 	},
 	
-	loadExplanationText : function(my) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), homePage.waitForTimeout() * 1000, 'The Explanation Text was still not present when it should have appeared.');		
+	waitForExplanationText : function(my) {
+		return my.waitForXpath('//div[@class=\'explanationText \']', 'Explanation Text');
 	},
-	
-	loadExplanationText_newText : function(my, text) {
-		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//div[@class=\'explanationText \']')), text), homePage.waitForTimeout() * 1000, 'The Explanation Text (with new text ' + text + ') was still not present when it should have appeared.');	
+
+	waitForFacetItem : function(my, category, order) {
+		return my.waitForXpath('//div[@class=\'facets\']/h3[contains(text(),\'' + category + ':\')]/following-sibling::ul[1]/li[' + order + ']/a', 'Facet Item');
+	},
+
+	waitForFacetItems : function(my, category) {
+		return my.waitForXpath('//div[@class=\'facets\']/h3[contains(text(),\'' + category + ':\')]/following-sibling::ul[1]/li', 'Facet Items');
+	},
+
+	waitForFacetBackLink : function(my, category) {
+		return my.waitForXpath('//div[@class=\'facets\']/h3[contains(text(),\'' + category + ':\')]/following-sibling::p[1]/a', 'Facet Back Link');
+	},
+
+	waitForNewestFirstLink : function(my) {
+		return my.waitForXpath('//*[@id="sortForm"]/div/span[contains(normalize-space(@class), \'sort-by-list\')]/span[text()=\'Newest first\']', 'Newest First Link');
+	},                         
+
+	waitForAuthorArticleElements : function(my) {
+		return my.waitForXpath('//div[@id=\'searchResultsContainer\']/div/div[@class=\'resultItemContainer \']', 'Author Article Elements');
+	},
+
+	waitForAuthorArticleElementTimeSpan : function(my, order) {
+		return my.waitForXpath('//div[@id=\'searchResultsContainer\']/div/div[@class=\'resultItemContainer \'][' + order + ']/div/div/span[@class=\'source\']/span[@class=\'sourcePublicationDate\']', 'Author Article Element Time Span');
+	},
+
+	waitForToggleAllDescriptions : function(my) {
+		return my.waitForXpath('//*[@id="searchShowHide"]/span', 'Toggle All Descriptions');
+	},
+
+	waitForAuthorArticleElementDescription : function(my, order) {
+		return my.waitForXpath('//div[@id=\'searchResultsContainer\']/div/div[@class=\'resultItemContainer \'][' + order + ']/div/div/div[@class=\'description\']', 'Author Article Element Description');
+	},
+
+	waitForCurrentPageSpan : function(my) {
+		return my.waitForXpath('//div[@class="navigationBar"]/div/div[@class="paginator"]/span', 'Current Page Span');
+	},
+
+	waitForNextButton : function(my) {
+		return my.waitForXpath('//div[@class="navigationBar"]/div/div[@class="paginator"]', 'Next Button');
 	},
 	
 	loadFacetBackLink : function(my, category) {
 		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//div[@class=\'facets\']/h3[contains(text(),\'' + category + ':\')]/following-sibling::p[1]/a')), homePage.waitForTimeout() * 1000, 'Facet Back Link (in ' + category + ') was still not present when it should have appeared.');		
-	},
-	
-	loadNewestFirstLink : function(my) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="sortForm"]/div/span[contains(normalize-space(@class), \'sort-by-list\')]/span[text()=\'Newest first\']')), homePage.waitForTimeout() * 1000, 'Newest First Link was still not present when it should have appeared.');		
 	},
 	
 	vanishFacetBackLink : function(my, category) {
@@ -96,19 +127,10 @@ module.exports = {
 		    });
 		}, homePage.waitForTimeout() * 1000, 'The Facet Back Link was still present when it should have disappeared.');		
 	},
-	
-	loadCurrentPageSpan : function(my) {                                        
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[4]/div[21]/div/div[2]/span')), homePage.waitForTimeout() * 1000, 'The Current Page Span was still not present when it should have appeared.');		
-	},                                                                          
-	
+
 	checkCurrentPageSpan : function(my) {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[4]/div[21]/div/div[2]/span')); 
 	}, 
-	
-	loadCurrentPageSpan_newText : function(my, newText) {
-		var expireMessage = 'Current Page Span (with new text ' + newText + ') was still not present when it should have appeared.';
-		my.driver.wait(my.webdriver.until.elementTextContains(my.driver.findElement(my.webdriver.By.xpath('//*[@id="searchResultsContainer"]/div[3]/div[21]/div/div[2]/span')), newText), homePage.waitForTimeout() * 1000, expireMessage);	
-	},
 	
 	
 	// **********************************************************************

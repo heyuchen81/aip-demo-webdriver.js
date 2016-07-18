@@ -10,12 +10,13 @@ module.exports = function() {
 
 	this.Given(/^user is on the registration page$/, function(callback) {
 		homePage.mobileLoginTreat(this);
+		homePage.waitForRegisterLink(this);
 		homePage.registerLink(this).click();
 		callback();
 	});
 	
 	this.When(/^user has completed all fields$/, function(callback) {	
-		registerPage.loadNameBox(this);
+		registerPage.waitForNameBox(this);
 		registerPage.nameBox(this).sendKeys('Xin He');
 		registerPage.emailBox(this).sendKeys('emailbox@ingenta.com');
 		registerPage.emailBox2(this).sendKeys('emailbox@ingenta.com');

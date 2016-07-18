@@ -25,8 +25,7 @@ module.exports = {
 	},
 	
 	relatedLink : function(my) {
-		return my.driver.findElement({ xpath : '//*[@id="related"]/a/span' });
-		
+		return my.driver.findElement({ xpath : '//*[@id="related"]/a/span' });		
 	},
 	
 	relatedItems : function(my) {
@@ -47,11 +46,35 @@ module.exports = {
 	/*
 	 *    Actions
 	 */
-
-	loadBrowseTitlesTab : function(my) {
-		my.driver.wait(my.webdriver.until.elementLocated(my.webdriver.By.xpath('//*[@id="titlestab"]/a/span')), homePage.waitForTimeout() * 1000, 'The Browse Titles tab was still not present when it should have appeared.');		
-	},
 	
+	waitForBrowseTitlesTab : function(my) {
+		return my.waitForXpath('//*[@id="titlestab"]/a/span', 'Browse Titles Tab');
+	},
+
+	waitForProceedingLink : function(my, order) {
+		return my.waitForXpath('//*[@id="titlestab"]/div[2]/div[2]/ul[contains(normalize-space(@class), \'separated-list\')]/li[' + order + ']/ul/li/div/div[1]/h5/span/a', 'Proceeding Link');
+	},
+
+	waitForArticleLink : function(my) {
+		return my.waitForXpath('//*[@id="content"]/div[4]/div[1]/ul[3]/li[2]/ul/div/ul/li/div[2]/div[1]/h5/span/a', 'Article Link');
+	},
+
+	waitForRelatedLink : function(my) {
+		return my.waitForXpath('//*[@id="related"]/a/span', 'Related Link');
+	},
+
+	waitForRelatedItems : function(my) {
+		return my.waitForXpath('//*[@id="morelikethis"]/ul/li', 'Related Items');
+	},
+
+	waitForMobileMenuButton : function(my) {
+		return my.waitForXpath('//*[@id="content"]/div[3]/div/span[contains(normalize-space(@class), \'ham-icon\')]/span[@class = \'aip-icon-menu3\']', 'Mobile Menu Button');
+	},
+
+	waitForMobileArticleMenuButton : function(my) {
+		return my.waitForXpath('//*[@id="articleTabs"]/div/span', 'Mobile Article Menu Button');
+	},
+
 	checkArticleTabs : function(my) {
 		return my.driver.isElementPresent(my.webdriver.By.xpath('//div[@id=\'articleTabs\']'));	
 	},
@@ -77,8 +100,6 @@ module.exports = {
 	        });
 		 }, homePage.waitForTimeout() * 1000, expireMessage);
 	},
-	
-	
 	
 	
     // **********************************************************************

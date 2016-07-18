@@ -31,7 +31,6 @@ var buildBsDriver_PC1 = function() {
 		 'browserstack.key' : process.env.AUTOMATE_KEY,		
 		'browserstack.debug' : 'true',
 		'CapabilityType.ACCEPT_SSL_CERTS': 'true'
-		// 'browserstack.local' : 'true'
 	};
 	return new webdriver.Builder().usingServer(
 			'http://hub.browserstack.com/wd/hub')
@@ -39,17 +38,12 @@ var buildBsDriver_PC1 = function() {
 };
 
 var buildBsDriver_M1 = function() {
-	var capabilities = {
-//		'browserName' : 'iPhone',
-//		'platform' : 'MAC',
-//		'device' : 'iPhone 6S Plus',
-				 
-		 'browserName' : 'Chrome',
-		 'browser_version' : '51.0',
-		 'os' : 'OS X',
-		 'os_version' : 'El Capitan',
-		 'resolution' : '1024x768',
-		
+	var capabilities = {	 
+		'browserName' : 'Chrome',
+		'browser_version' : '51.0',
+		'os' : 'OS X',
+		'os_version' : 'El Capitan',
+		'resolution' : '1024x768',		
 		'browserstack.user' : process.env.USERNAME,
 		'browserstack.key' : process.env.AUTOMATE_KEY,
 		'browserstack.debug' : 'true',
@@ -89,9 +83,9 @@ var getDriver = function() {
 
 var World = function World() {
 
-	var defaultTimeout = 20000;
+	var defaultTimeout = 60000;
 	var screenshotPath = "screenshots";
-	driver.manage().timeouts().implicitlyWait(5000);	
+	driver.manage().timeouts().implicitlyWait(40000);	
 
 	this.webdriver = webdriver;
 	this.driver = driver;
@@ -100,14 +94,39 @@ var World = function World() {
 		fs.mkdirSync(screenshotPath);
 	}
 
-	this.waitFor = function(cssLocator, timeout) {
-		var waitTimeout = timeout || defaultTimeout;
+	this.waitForId = function(idLocator, elementName) {
+		var errMsg = elementName + ' was still not present when it should have appeared.';  
 		return driver.wait(function() {
-			return driver.isElementPresent({
-				css : cssLocator
-			});
-		}, waitTimeout);
-	};	
+			return driver.isElementPresent({ id : idLocator }) && 
+				   driver.findElement({ id : idLocator }).isDisplayed().then(function (displayed) {
+			           if (!displayed) return false;
+			           return driver.findElement({ id : idLocator }).isEnabled();
+			       });				   
+		}, defaultTimeout, errMsg);
+	};
+	
+	this.waitForCss = function(cssLocator, elementName) {
+		var errMsg = elementName + ' was still not present when it should have appeared.'; 
+		return driver.wait(function() {
+			return driver.isElementPresent({ css : cssLocator }) && 
+				   driver.findElement({ css : cssLocator }).isDisplayed().then(function (displayed) {
+			           if (!displayed) return false;
+			           return driver.findElement({ css : cssLocator }).isEnabled();
+			       });				   
+		}, defaultTimeout, errMsg);
+	};
+	
+	this.waitForXpath = function(xpathLocator, elementName) {
+		var errMsg = elementName + ' was still not present when it should have appeared.'; 
+		return driver.wait(function() {
+			return driver.isElementPresent({ xpath : xpathLocator }) && 
+				   driver.findElement({ xpath : xpathLocator }).isDisplayed().then(function (displayed) {
+			           if (!displayed) return false;
+			           return driver.findElement({ xpath : xpathLocator }).isEnabled();
+			       });				   
+		}, defaultTimeout, errMsg);
+	};
+	
 };
 
 module.exports.World = World;

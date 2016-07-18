@@ -11,6 +11,7 @@ module.exports = function() {
 
 	this.Given(/^user is on "([^"]*)" journal page$/, function(jtitle, callback) {
 		publicationsPage.load(this);
+		publicationsPage.waitForPublicationItem(this, jtitle);
 		publicationsPage.publicationItem(this, jtitle).click();		
 		journalPage.pageTitle(this).then(function(ptitle) {
 			expect(ptitle).to.equal(jtitle);
@@ -21,19 +22,20 @@ module.exports = function() {
 	this.Given(/^user is on "([^"]*)" journal browse tab$/, function(jtitle, callback) {
 		var myworld = this;	
 		publicationsPage.load(this);
+		publicationsPage.waitForPublicationItem(this, jtitle);
 		publicationsPage.publicationItem(this, jtitle).click();		
 		journalPage.pageTitle(this).then(function(ptitle) {
 			expect(ptitle).to.equal(jtitle);			
 			journalPage.mobileEditTreat(myworld);
+			journalPage.waitForBrowseLink(myworld);
 			journalPage.browseLink(myworld).click();
 		});
 		callback();
 	});
 	
 	this.When(/^user clicks on the most read rss icon$/, function(callback) {		
-		this.driver.sleep(5000);
+		journalPage.waitForMostReadRssIcon(this);
 		journalPage.mostReadRssIcon(this).click();		
-		this.driver.sleep(5000);
 		callback();
 	});
 
@@ -43,6 +45,7 @@ module.exports = function() {
 		journalPage.checkSignInAlert(this).then(function(present) {
 			expect(present).to.equal(false);					
 		}).then(function() {
+			journalPage.waitForSubscribeToEmailLink(myworld);
 			journalPage.subscribeToEmailLink(myworld).click();
 		});
 		callback();
@@ -55,6 +58,7 @@ module.exports = function() {
 	});
 	
 	this.When(/^user clicks on an article title$/, function(callback) {
+		journalPage.waitForContributedArticleTitle(this, 1);
 		journalPage.contributedArticleTitle(this, 1).click();
 		callback();
 	});
@@ -71,7 +75,6 @@ module.exports = function() {
 			myworld.driver.close();
 			return myworld.driver.getAllWindowHandles();
 		}).then(function(allhandles) {
-			//expect(allhandles.length).to.equal(1);
 			var newhandlerid = allhandles[0];						
 			myworld.driver.switchTo().window(newhandlerid);			
 			return myworld.driver.getCurrentUrl();
