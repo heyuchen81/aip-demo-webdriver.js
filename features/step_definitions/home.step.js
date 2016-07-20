@@ -53,7 +53,6 @@ module.exports = function() {
 				homePage.signInLink(myworld).click();	
 			}
 		});
-		// homePage.loadPasswordBox(this);
 		homePage.waitForSignInUsernameBox(this);
 		homePage.signInUsernameBox(this).sendKeys('MarkInst2');
 		homePage.waitForSignInPasswordBox(this);
