@@ -163,7 +163,7 @@ module.exports = {
 	},	
 		
 	waitForTimeout : function() {
-		return 30;      
+		return 70;      
 	},
 	
 	mobileSearchTreat : function(my) {
