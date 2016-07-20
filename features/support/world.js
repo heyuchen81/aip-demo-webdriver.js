@@ -85,7 +85,7 @@ var World = function World() {
 
 	var defaultTimeout = 60000;
 	var screenshotPath = "screenshots";
-	driver.manage().timeouts().implicitlyWait(5000);
+	driver.manage().timeouts().implicitlyWait(50000);
 
 	this.webdriver = webdriver;
 	this.driver = driver;
